@@ -1,0 +1,40 @@
+create database project_db_v1;
+
+use project_db_v1;
+
+show tables;
+
+desc patients;
+desc doctors;
+desc accountant;
+desc receptionist;
+desc admin;
+desc management;
+desc appointments;
+desc bed;
+desc wards;
+desc bills;
+----------------------------------------------------------
+INSERT INTO admin (management_id, admin_first_name, admin_last_name, admin_dob, admin_gender, admin_mobile, admin_email, admin_address, admin_govt_id, admin_passport, admin_salary, admin_qualification, admin_hiredate, extra_col_1)
+VALUES (1, 'John', 'Doe', '1990-05-15', 'Male', '1234567890', 'john.doe@example.com', '123 Main St', 'ABC123', 'P123456', 50000, 'MBA', '2020-08-10', 'Additional Info');
+
+INSERT INTO admin (management_id, admin_first_name, admin_last_name, admin_dob, admin_gender, admin_mobile, admin_email, admin_address, admin_govt_id, admin_passport, admin_salary, admin_qualification, admin_hiredate, extra_col_1)
+VALUES (2, 'Jane', 'Smith', '1985-07-20', 'Female', '9876543210', 'jane.smith@example.com', '456 Oak St', 'XYZ789', 'P654321', 60000, 'PhD', '2018-06-05', 'Additional Information');
+
+INSERT INTO admin (management_id, admin_first_name, admin_last_name, admin_dob, admin_gender, admin_mobile, admin_email, admin_address, admin_govt_id, admin_passport, admin_salary, admin_qualification, admin_hiredate, extra_col_1)
+VALUES (3, 'Robert', 'Johnson', '1982-03-08', 'Male', '5558889999', 'robert.johnson@example.com', '789 Pine St', 'DEF456', 'P789012', 55000, 'B.Sc.', '2015-09-15', 'Extra Details');
+
+select * from admin;
+----------------------------------------------------------
+
+INSERT INTO accountant (accountant_first_name, accountant_last_name, accountant_dob, accountant_gender, accountant_mobile, accountant_email, accountant_address, accountant_govt_id, accountant_passport, accountant_salary, accountant_qualification, accountant_hiredate, extra_col_1, management_id)
+VALUES ('Michael', 'Williams', '1995-04-12', 'Male', '3332221111', 'michael.williams@example.com', '101 Pineapple St, City, Country', 'MNO123XYZ', 'P987654', 85000, 'Accounting Degree', '2016-10-15', 'Additional Data 5', 3);
+
+INSERT INTO accountant (accountant_first_name, accountant_last_name, accountant_dob, accountant_gender, accountant_mobile, accountant_email, accountant_address, accountant_govt_id, accountant_passport, accountant_salary, accountant_qualification, accountant_hiredate, extra_col_1, management_id)
+VALUES ('Jane', 'Smith', '1990-06-15', 'Female', '9876543210', 'jane.smith@example.com', '456 Oak St, City, Country', 'XYZ789ABC', 'P654321', 75000, 'Finance Degree', '2018-09-05', 'Additional Data 2', 1);
+
+INSERT INTO accountant (accountant_first_name, accountant_last_name, accountant_dob, accountant_gender, accountant_mobile, accountant_email, accountant_address, accountant_govt_id, accountant_passport, accountant_salary, accountant_qualification, accountant_hiredate, extra_col_1, management_id)
+VALUES ('Robert', 'Johnson', '1988-03-25', 'Male', '8765432109', 'robert.johnson@example.com', '789 Pine St, City, Country', 'DEF456UVW', 'P789012', 80000, 'Business Degree', '2019-12-03', 'More Data 3', 2);
+
+select * from accountant;
+----------------------------------------------------------
