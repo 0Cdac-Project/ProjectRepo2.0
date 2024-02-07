@@ -1,0 +1,8 @@
+{
+    "host" : "localhost",
+    "database" : "cdac_project",
+    "user" : "D1_80734_Sandesh",
+    "password" : "80734",
+    "PORT" : 9999,
+    "jwtkey" : "Roronoa3"
+}
