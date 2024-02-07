@@ -10,6 +10,7 @@ import password_icon from '../Assets/password.png'
 function LoginSignup() {
 
     const [action, setAction] = useState("Login");
+    const [errormsg, setErrorMsg] = useState("");
     const [LoginType, setLoginType] = useState('');
     const [staffType, setStaffType] = useState('');
     const [userInfo, setUserInfo] = useState({name: "", username: "", password: "", LoginType, staffType});
@@ -51,7 +52,24 @@ function LoginSignup() {
 
     const LoginSubmit = (event)=>{
         if(action === "Login"){
-            axios.post("http://127.0.0.1:9999/login", userInfo).then((reply)=>{})
+            axios.post("http://127.0.0.1:9999/login", userInfo).then((reply)=>{
+                switch (reply.data.message) {
+                    case "success":
+                        setErrorMsg("Success")
+                        break;
+                       
+                    case "Incorrect Password":
+                        setErrorMsg("Incorrect Password")
+                        break;
+                        
+                    case "User Does not exist":
+                        setErrorMsg("User Does Not exist")
+                        break;
+                
+                    default:
+                        break;
+                }
+            })
         }else{
             console.log(action);
             setAction("Login");
@@ -61,7 +79,9 @@ function LoginSignup() {
 
     const signUpSubmit = (event)=>{
         if(action === "Sign Up"){
-            axios.post("http://127.0.0.1:9999/signup", userInfo).then((reply)=>{})
+            axios.post("http://127.0.0.1:9999/signup", userInfo).then((reply)=>{
+            
+            })
         }else{
             setAction("Sign Up");
         }
@@ -116,7 +136,7 @@ function LoginSignup() {
                     </select>
                     </div>: <div></div>}
                 
-
+                {errormsg === "" ? <div></div> : <div>{errormsg}</div>}
                 {action === "Login"? <div></div>:<div className='input'>
                     <img src={user_icon} alt=''/>
                     <input type='text' placeholder='Name' name='name' value={userInfo.name} onChange={inputChange}/>
@@ -124,7 +144,7 @@ function LoginSignup() {
                 
                 <div className='input'>
                     <img src={email_icon} alt=''/>
-                    <input type='email' placeholder='Email Id' name='email' value={userInfo.username} onChange={inputChange}/>
+                    <input type='email' placeholder='Email Id' name='username' value={userInfo.username} onChange={inputChange}/>
                 </div>
                 <div className='input'>
                     <img src={password_icon} alt=''/>
@@ -133,7 +153,8 @@ function LoginSignup() {
             </div>
             {action === "Sign Up" ? <div></div>:<div className='forgot-password'> Forgot Password ? <span>Click Here</span></div>}
             <div className='submit-container'>
-                {LoginType === "Doctor" || LoginType === "Staff" ? <div className={action === "Sign Up"? "submit gray": "submit"} name="Login" onClick={LoginSubmit}>Login</div>:  <div className='btn-cont'><div className={action === "Login"?"submit gray":"submit"} name="Sign Up" onClick={signUpSubmit}>Sign up</div>
+                {LoginType === "Doctor" || LoginType === "Staff" ? <div className={action === "Sign Up"? "submit gray": "submit"} name="Login" onClick={LoginSubmit}>Login</div>: 
+                 <div className='btn-cont'><div className={action === "Login"?"submit gray":"submit"} name="Sign Up" onClick={signUpSubmit}>Sign up</div>
                     <div className={action === "Sign Up"? "submit gray": "submit"} name="Login" onClick={LoginSubmit}>Login</div> </div>}  
             </div>
         </div>

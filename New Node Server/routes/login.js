@@ -19,19 +19,24 @@ app.post("/", (request, response)=>
     }
     const connection = mysql.createConnection(connectionDetails);
 
-    var statement = `select * from patients where username = "${username}" and password = "${password}"`;
+    var statement = `select password from patients where username = "${username}"`;
 
     connection.query(statement, (error, result) =>{
         if(error == null){
             console.log(result);
             if(result.length == 0){
                 var responseMessage = {
-                    message : "Invalid User Credentials"
+                    message : "User Does not exist"
                 }
                 response.write(JSON.stringify(responseMessage));
                 response.end();
-            }
-            else{
+            }else if(result[0].password != password){
+                var responseMessage = {
+                    message : "Incorrect Password"
+                }
+                response.write(JSON.stringify(responseMessage));
+                response.end();
+            }else{
                 var d = new Date().getDate();
                 var payload = {
                     "username" : username,
