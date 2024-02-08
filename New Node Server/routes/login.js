@@ -10,6 +10,11 @@ app.post("/", (request, response)=>
 {
     var username = request.body.username;
     var password = request.body.password;
+    var userType = request.body.LoginType;
+    var staffType = request.body.staffType;
+    console.log(userType);
+    console.log(staffType);
+
 
     const connectionDetails = {
         host : config.get("host"),
@@ -19,7 +24,7 @@ app.post("/", (request, response)=>
     }
     const connection = mysql.createConnection(connectionDetails);
 
-    var statement = `select password from patients where username = "${username}"`;
+    var statement = `select password from ${userType}s where username = "${username}"`;
 
     connection.query(statement, (error, result) =>{
         if(error == null){

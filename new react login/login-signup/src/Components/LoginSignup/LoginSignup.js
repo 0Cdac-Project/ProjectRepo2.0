@@ -1,29 +1,18 @@
 import React, { useState } from 'react'
-import './LoginSignup.css'
 import axios from 'axios'
+import './LoginSignup.css'
 // import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 
-import user_icon from '../Assets/person.png'
-import email_icon from '../Assets/email.png'
-import password_icon from '../Assets/password.png'
+
+import user_icon from '../../Assets/person.png'
+import email_icon from '../../Assets/email.png'
+import password_icon from '../../Assets/password.png'
 
 function LoginSignup() {
 
     const [action, setAction] = useState("Login");
     const [errormsg, setErrorMsg] = useState("");
-    const [LoginType, setLoginType] = useState('');
-    const [staffType, setStaffType] = useState('');
-    const [userInfo, setUserInfo] = useState({name: "", username: "", password: "", LoginType, staffType});
-     
-    const handleStaffTypeChange = (event) => {
-        setStaffType(event.target.value);
-    };
-
-
-    const handleChange = (event) => {
-
-            setLoginType(event.target.value);
-    };
+    const [userInfo, setUserInfo] = useState({name: "", username: "", password: "",  LoginType : "" , staffType : ""});
 
     const inputChange = (args)=>{
         var copyofUser = {...userInfo};
@@ -31,59 +20,41 @@ function LoginSignup() {
         setUserInfo(copyofUser);
     };
 
-    // const submitData= (args)=>{
-    //     if(args.target.name === "Login"){
-    //         if(action === "Login"){
-    //         axios.post("http://127.0.0.1:9999/login", action).then((reply)=>{})
-    //         }
-    //         if(action === "Sign Up"){
-    //             setAction("Sign Up");
-    //         }
-    //     }
-    //     if(args.target.name === "Sign Up"){
-    //         if(action === "Sign Up"){
-    //         axios.post("http://127.0.0.1:9999/login", action).then((reply)=>{})
-    //         }
-    //         if(action === "Login"){
-    //             setAction("Login");
-    //         }
-    //     }
-    // }
-
-    const LoginSubmit = (event)=>{
-        if(action === "Login"){
-            axios.post("http://127.0.0.1:9999/login", userInfo).then((reply)=>{
-                switch (reply.data.message) {
-                    case "success":
-                        setErrorMsg("Success")
-                        break;
-                       
-                    case "Incorrect Password":
-                        setErrorMsg("Incorrect Password")
-                        break;
-                        
-                    case "User Does not exist":
-                        setErrorMsg("User Does Not exist")
-                        break;
+    const Submit = (event) =>{
+        if(event.target.name === "Sign Up"){
+            if(action === "Sign Up"){
+                axios.post("http://127.0.0.1:9999/signup", userInfo).then((reply)=>{
                 
-                    default:
-                        break;
-                }
-            })
-        }else{
-            console.log(action);
-            setAction("Login");
-            console.log(action);
+                })
+            }else{
+                setAction("Sign Up");
+            }
         }
-    }
-
-    const signUpSubmit = (event)=>{
-        if(action === "Sign Up"){
-            axios.post("http://127.0.0.1:9999/signup", userInfo).then((reply)=>{
-            
-            })
-        }else{
-            setAction("Sign Up");
+        if(event.target.name === "Login"){
+            if(action === "Login"){
+                axios.post("http://127.0.0.1:9999/login", userInfo).then((reply)=>{
+                    switch (reply.data.message) {
+                        case "success":
+                            setErrorMsg("User Logged In");
+                            break;
+                           
+                        case "Incorrect Password":
+                            setErrorMsg("Incorrect Password")
+                            break;
+                            
+                        case "User Does not exist":
+                            setErrorMsg("User Does Not exist")
+                            break;
+                    
+                        default:
+                            break;
+                    }
+                })
+            }else{
+                console.log(action);
+                setAction("Login");
+                console.log(action);
+            }
         }
     }
 
@@ -98,9 +69,10 @@ function LoginSignup() {
                     <label>
                         <input
                         type="radio"
-                        value="Patient"
-                        checked={LoginType === "Patient"}
-                        onChange={handleChange}
+                        value="patient"
+                        name='LoginType'
+                        checked={userInfo.LoginType === "patient"}
+                        onChange={inputChange}
                         />
                         Patient
                     </label>
@@ -108,9 +80,10 @@ function LoginSignup() {
                     <label>
                         <input
                         type="radio"
-                        value="Doctor"
-                        checked={LoginType === "Doctor"}
-                        onChange={handleChange}
+                        value="doctor"
+                        name='LoginType'
+                        checked={userInfo.LoginType === "doctor"}
+                        onChange={inputChange}
                         />
                         Doctor
                     </label>
@@ -118,21 +91,22 @@ function LoginSignup() {
                     <label>
                         <input
                         type="radio"
-                        value="Staff"
-                        checked={LoginType === "Staff"}
-                        onChange={handleChange}
+                        value="staff"
+                        name='LoginType'
+                        checked={userInfo.LoginType === "staff"}
+                        onChange={inputChange}
                         />
                         Staff
                     </label>
                 </div>}
 
-                {LoginType === "Staff" && action === "Login" ? <div className='staff-type'>
+                {userInfo.LoginType === "staff" && action === "Login" ? <div className='staff-type'>
                     <label htmlFor="roles">Select a role :</label>
-                    <select id="roles" value={staffType} onChange={handleStaffTypeChange}>
+                    <select id="roles" name='staffType'   value={userInfo.staffType} onChange={inputChange}>
                         <option value="">Select...</option>
-                        <option value="Admin">Admin</option>
-                        <option value="Accountant">Accountant</option>
-                        <option value="Reception">Reception</option>
+                        <option value="admin">Admin</option>
+                        <option value="accountant">Accountant</option>
+                        <option value="reception">Reception</option>
                     </select>
                     </div>: <div></div>}
                 
@@ -153,9 +127,9 @@ function LoginSignup() {
             </div>
             {action === "Sign Up" ? <div></div>:<div className='forgot-password'> Forgot Password ? <span>Click Here</span></div>}
             <div className='submit-container'>
-                {LoginType === "Doctor" || LoginType === "Staff" ? <div className={action === "Sign Up"? "submit gray": "submit"} name="Login" onClick={LoginSubmit}>Login</div>: 
-                 <div className='btn-cont'><div className={action === "Login"?"submit gray":"submit"} name="Sign Up" onClick={signUpSubmit}>Sign up</div>
-                    <div className={action === "Sign Up"? "submit gray": "submit"} name="Login" onClick={LoginSubmit}>Login</div> </div>}  
+                {userInfo.LoginType === "Doctor" || userInfo.LoginType === "Staff" ? <div className={action === "Sign Up"? "submit gray": "submit"} name="Login" onClick={Submit}>Login</div>: 
+                 <div className='btn-cont'><div className={action === "Login"?"submit gray":"submit"} name="Sign Up" onClick={Submit}>Sign up</div>
+                    <div className={action === "Sign Up"? "submit gray": "submit"} name="Login" onClick={Submit}>Login</div> </div>}  
             </div>
         </div>
 
