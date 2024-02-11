@@ -40,4 +40,8 @@ public class ManagementService {
     public Management getManagementByEmailAndPassword(String managementUsername, String managementPassword) {
         return managementRepository.findByManagementUsernameAndManagementPassword(managementUsername,managementPassword).orElseThrow();
     }
+
+    public List<Management> getManagementByCategory(String category) {
+        return managementRepository.findByManagementCategory(category);
+    }
 }

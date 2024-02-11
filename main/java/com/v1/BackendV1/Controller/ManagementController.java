@@ -24,6 +24,12 @@ public class ManagementController {
         return managementService.getManagement();
     }
 
+    @GetMapping("/findAllByCategory/{category}")
+    public List<Management> getManagementByCategory(@PathVariable String category) {
+        System.out.println(category);
+        return managementService.getManagementByCategory(category);
+    }
+
     @PostMapping("/add")
     public void addNewManagement(@RequestBody Management management) {
         managementService.addManagement(management);

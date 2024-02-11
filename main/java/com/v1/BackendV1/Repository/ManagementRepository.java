@@ -7,10 +7,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface ManagementRepository extends JpaRepository<Management, Integer> {
     Optional<Management> findById(Integer id);
+    List<Management> findByManagementCategory(String managementCategory);
     Optional<Management> findByManagementUsernameAndManagementPassword(String managementUsername,String managementPassword);
 }

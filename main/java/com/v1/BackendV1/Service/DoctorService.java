@@ -24,7 +24,7 @@ public class DoctorService {
     }
 
     public void addDoctor(Doctor doctor) {
-        Optional<Doctor> optionalPatient = doctorRepository.findById(doctor.getdoctorID());
+        Optional<Doctor> optionalPatient = doctorRepository.findById(doctor.getDoctorID());
         if (optionalPatient.isPresent()) {
             throw new IllegalStateException("Duplicate Entry");
         }

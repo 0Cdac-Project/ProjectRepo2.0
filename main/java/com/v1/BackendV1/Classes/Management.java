@@ -3,6 +3,7 @@ package com.v1.BackendV1.Classes;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 @Entity
 @Table(name = "management")
@@ -63,6 +64,9 @@ public class Management {
     @Column(name = "extra_col_1", length = 250)
     private String extraCol1;
 
+    @Lob
+    @Column(length = Integer.MAX_VALUE)
+    private byte[] managementImage;
     public Management(String managementUsername, String managementPassword, String managementCategory, String managementFirstName, String managementLastName, LocalDate managementDob, Integer managementAge, String managementGender, String managementMobile, String managementEmail, String managementAddress, String managementGovtID, String managementPassport, Integer managementSalary, String managementQualification, LocalDate managementHiredate, String extraCol1) {
         this.managementUsername = managementUsername;
         this.managementPassword = managementPassword;
@@ -156,7 +160,7 @@ public class Management {
     }
 
     public Integer getmanagementAge() {
-        return managementAge;
+        return Period.between(LocalDate.now(),this.getmanagementDob()).getYears();
     }
 
     public void setmanagementAge(Integer managementAge) {
