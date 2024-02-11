@@ -1,0 +1,8 @@
+{
+    "host": "localhost",
+    "database": "cdac_project",
+    "user": "D1_80713_Mayur",
+    "password": "boiledpotato",
+    "port": 9800,
+    "secretkey": "foreverbefadedundergoldskies" 
+}
