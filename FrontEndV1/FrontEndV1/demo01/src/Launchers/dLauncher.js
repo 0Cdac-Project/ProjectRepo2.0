@@ -1,11 +1,4 @@
-import { Link, Routes } from "react-router-dom";
-import AppointmentHistory from "../dComponents/Appointment_history";
-import Dashboard from "../dComponents/Dashboard";
-import Patient from "../dComponents/Patient_History";
-import HelpAndSupport from "../dComponents/Help_and_Support";
-import Profile from "../dComponents/Profile";
-import ProtectedRoute from "../dComponents/ProtectedRoute";
-import EducationRes from "../dComponents/EducataionResources";
+import { NavLink, Outlet } from "react-router-dom";
 function pLauncher() {
     
     return ( <>
@@ -24,34 +17,34 @@ function pLauncher() {
             <div className="side-menu">
                 <ul className="ps-0">
                     <li>
-                        <Link to="/dashboard" className="active ul-items">
+                        <NavLink to="dashboard" >
                             <span className="las la-home"></span>
                             <small>Dashboard</small>
-                        </Link>
+                        </NavLink>
                     </li>
                     <li>
-                        <Link to="/appointmentHistory" className="ul-items">
+                        <NavLink to="appointmentHistory" >
                             <span className="las la-user-alt"></span>
                             <small>Appointments History</small>
-                        </Link>
+                        </NavLink>
                     </li>
                     <li>
-                       <Link to="/patients" className="ul-items">
+                       <NavLink to="patients" >
                             <span className="las la-user"></span>
                             <small>Patients History</small>
-                        </Link>
+                        </NavLink>
                     </li>
                     <li>
-                       <Link to="/edures" className="ul-items">
+                       <NavLink to="edures" >
                             <span className="las la-clipboard-list"></span>
                             <small>Educational Resources</small>
-                        </Link>
+                        </NavLink>
                     </li>
                     <li>
-                       <Link to="/help" className="ul-items">
+                       <NavLink to="help" >
                             <span className="las la-question"></span>
                             <small>Help and Support</small>
-                        </Link>
+                        </NavLink>
                     </li>
 
                 </ul>
@@ -69,10 +62,9 @@ function pLauncher() {
                 
                 <div className="header-menu">                   
                     <div className="notify">
-                        <Link to="/profile">
+                        <NavLink to="profile">
                             <span className="las la-user"></span>
-                            {/* <span className="notify"></span> */}
-                        </Link>
+                        </NavLink>
                     </div>
                     
                     <div className="user">
@@ -87,17 +79,7 @@ function pLauncher() {
         
         
         <main>
-            
-            <Routes>
-                <ProtectedRoute path="/" exact component={Dashboard}/>
-                <ProtectedRoute path="/dashboard" exact component={Dashboard}/>
-                <ProtectedRoute path="/appointmentHistory" exact component={AppointmentHistory}/>
-                <ProtectedRoute path="/patients" exact component={Patient}/>
-                <ProtectedRoute path="/edures" exact component={EducationRes}/>
-                <ProtectedRoute path="/help" exact component={HelpAndSupport}/>
-                <ProtectedRoute path="/profile" exact component={Profile}/>
-            </Routes>
-            
+            <Outlet/>     
         </main>
         
     </div>

@@ -115,9 +115,8 @@
 
 #doctorImg {
     width: 150px;
-    margin: 20px;
     border-radius: 15px;
-    box-shadow: 10px 10px 5px lightblue;
+    box-shadow: 5px 5px 5px 5px lightblue;
 }
 
 :root {
@@ -685,4 +684,11 @@ table tbody tr {
 	.add, .browse {
 		margin-left: 10px;
 	}
+}
+.resource-card {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
 }

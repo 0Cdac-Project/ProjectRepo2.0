@@ -1,13 +1,4 @@
-import { Link, Routes } from "react-router-dom";
-import Dashboard from "../rComponents/Dashboard";
-import Patient from "../rComponents/PatientDetails";
-import HelpAndSupport from "../rComponents/Help_and_Support";
-import Profile from "../rComponents/Profile";
-import ProtectedRoute from "../rComponents/ProtectedRoute";
-import Bed from "../rComponents/Bed";
-import Doctor from "../rComponents/DoctorSchedule";
-import NewAppointment from '../rComponents/NewAppointment';
-
+import { NavLink, Outlet } from "react-router-dom";
 
 function pLauncher() {
     
@@ -27,40 +18,40 @@ function pLauncher() {
             <div className="side-menu">
                 <ul className="ps-0">
                     <li>
-                        <Link to="/dashboard" className="active ul-items">
+                        <NavLink to="dashboard" >
                             <span className="las la-home"></span>
                             <small>Dashboard</small>
-                        </Link>
+                        </NavLink>
                     </li>
                     <li>
-                        <Link to="/addNewAppointment" className="ul-items">
+                        <NavLink to="addNewAppointment" >
                             <span className="las la-user-plus"></span>
                             <small>Appointment Booking</small>
-                        </Link>
+                        </NavLink>
                     </li>
                     <li>
-                        <Link to="/doctors" className="ul-items">
+                        <NavLink to="doctors" >
                             <span className="las  la-calendar-day"></span>
                             <small>Doctors Schedule</small>
-                        </Link>
+                        </NavLink>
                     </li>
                     <li>
-                       <Link to="/patients" className="ul-items">
+                       <NavLink to="patients" >
                             <span className="las la-clipboard-list"></span>
                             <small>Patients Details</small>
-                        </Link>
+                        </NavLink>
                     </li>
                     <li>
-                        <Link to="/bed" className=" ul-items">
+                        <NavLink to="bed" className=" ul-items">
                             <span className="las la-procedures"></span>
                             <small>Bed Booking</small>
-                        </Link>
+                        </NavLink>
                     </li>
                     <li>
-                       <Link to="/help" className="ul-items">
+                       <NavLink to="help" >
                             <span className="las la-question"></span>
                             <small>Help and Support</small>
-                        </Link>
+                        </NavLink>
                     </li>
 
                 </ul>
@@ -78,10 +69,9 @@ function pLauncher() {
                 
                 <div className="header-menu">                   
                     <div className="notify">
-                        <Link to="/profile">
+                        <NavLink to="profile">
                             <span className="las la-user"></span>
-                            {/* <span className="notify"></span> */}
-                        </Link>
+                        </NavLink>
                     </div>
                     
                     <div className="user">
@@ -96,18 +86,7 @@ function pLauncher() {
         
         
         <main>
-            
-            <Routes>
-                <ProtectedRoute path="/" exact component={Dashboard}/>
-                <ProtectedRoute path="/dashboard" exact component={Dashboard}/>
-                <ProtectedRoute path="/doctors" exact component={Doctor}/>
-                <ProtectedRoute path="/patients" exact component={Patient}/>
-                <ProtectedRoute path="/addNewAppointment" exact component={NewAppointment}/>
-                <ProtectedRoute path="/bed" exact component={Bed}/>
-                <ProtectedRoute path="/help" exact component={HelpAndSupport}/>
-                <ProtectedRoute path="/profile" exact component={Profile}/>
-            </Routes>
-            
+           <Outlet/>           
         </main>
         
     </div>

@@ -11,10 +11,14 @@ import AdminPatient from "./aComponents/Patient";
 import AdminHelpAndSupport from "./aComponents/Help_and_Support";
 import AdminProfile from "./aComponents/Profile";
 import AdminAddNew from "./aComponents/AddNewStaffDoctor";
-import AdminStaffDetails from "./aComponents/StaffDetails";
+import AdminStaffDetails from "./aComponents/DoctorStaffDetails";
 import AdminBed from "./aComponents/Bed";
 import AdminFinances from "./aComponents/Finances";
 import AdminContactUsMessages from "./aComponents/ContactUsMessages";
+import AddDoctor from "./aComponents/addStaffComponents/addDocter";
+import AddStaff from "./aComponents/addStaffComponents/addStaff";
+import showDoctorDetails from "./aComponents/showDetailsComponents/showDoctersDetails";
+import showStaffDetails from "./aComponents/showDetailsComponents/showStaffDetails";
 
 import DocterLauncher from "./Launchers/dLauncher";
 import DocterAppointmentHistory from "./dComponents/Appointment_history";
@@ -40,7 +44,7 @@ import RecHelpAndSupport from "./rComponents/Help_and_Support";
 import RecProfile from "./rComponents/Profile";
 import RecBed from "./rComponents/Bed";
 import RecDoctor from "./rComponents/DoctorSchedule";
-import RecNewAppointment from './rComponents/NewAppointment';
+import RecNewAppointment from "./rComponents/NewAppointment";
 
 import AccLauncher from "./Launchers/acLauncher";
 import AccDashboard from "./acComponents/Dashboard";
@@ -54,66 +58,70 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
       <Route path="admin" element={<AdminLauncher />}>
-        <Route path=""  element={<AdminDashboard />} />
-        <Route path="dashboard"  element={<AdminDashboard />} />
-        <Route path="addNew"  element={<AdminAddNew />} />
-        <Route path="patients"  element={<AdminPatient />} />
-        <Route path="staff"  element={<AdminStaffDetails />} />
-        <Route path="bed"  element={<AdminBed />} />
-        <Route path="finances"  element={<AdminFinances />} />
-        <Route path="message"  element={<AdminContactUsMessages />} />
-        <Route path="help"  element={<AdminHelpAndSupport />} />
-        <Route path="profile"  element={<AdminProfile />} />
+        <Route path="" element={<AdminDashboard />} />
+        <Route path="dashboard" element={<AdminDashboard />} />
+        <Route path="addNew" element={<AdminAddNew />}>
+          <Route path="addDoctor" element={<AddDoctor />} />
+          <Route path="addStaff" element={<AddStaff />} />
+        </Route>
+        <Route path="patients" element={<AdminPatient />} />
+        <Route path="staff" element={<AdminStaffDetails />}>
+          <Route path="showDoctor" Component={showDoctorDetails} />
+          <Route path="showStaff" Component={showStaffDetails} />
+        </Route>
+        <Route path="bed" element={<AdminBed />} />
+        <Route path="finances" element={<AdminFinances />} />
+        <Route path="message" element={<AdminContactUsMessages />} />
+        <Route path="help" element={<AdminHelpAndSupport />} />
+        <Route path="profile" element={<AdminProfile />} />
       </Route>
 
       <Route path="docter" element={<DocterLauncher />}>
-        <Route path=""  element={<DocterDashboard />} />
-        <Route path="dashboard"  element={<DocterDashboard />} />
+        <Route path="" element={<DocterDashboard />} />
+        <Route path="dashboard" element={<DocterDashboard />} />
         <Route
           path="appointmentHistory"
-          
           element={<DocterAppointmentHistory />}
         />
-        <Route path="patients"  element={<DocterPatient />} />
-        <Route path="edures"  element={<DocterEducationRes />} />
-        <Route path="help"  element={<DocterHelpAndSupport />} />
-        <Route path="profile"  element={<DocterProfile />} />
+        <Route path="patients" element={<DocterPatient />} />
+        <Route path="edures" element={<DocterEducationRes />} />
+        <Route path="help" element={<DocterHelpAndSupport />} />
+        <Route path="profile" element={<DocterProfile />} />
       </Route>
 
-      <Route path="patient" element={<PatientLauncher/>}>
-        <Route path=""  element={<PatientDashboard />} />
-        <Route path="dashboard"  element={<PatientDashboard />} />
+      <Route path="patient" element={<PatientLauncher />}>
+        <Route path="" element={<PatientDashboard />} />
+        <Route path="dashboard" element={<PatientDashboard />} />
         <Route
           path="appointmentHistory"
-          
           element={<PatientAppointmentHistory />}
         />
-        <Route path="doctors"  element={<PatientDoctors />} />
-        <Route path="feedback"  element={<PatientFeedback />} />
-        <Route path="bills"  element={<PatientBills />} />
-        <Route path="help"  element={<PatientHelpAndSupport />} />
-        <Route path="profile"  element={<PatientProfile />} />
+        <Route path="doctors" element={<PatientDoctors />} />
+        <Route path="feedback" element={<PatientFeedback />} />
+        <Route path="bills" element={<PatientBills />} />
+        <Route path="help" element={<PatientHelpAndSupport />} />
+        <Route path="profile" element={<PatientProfile />} />
       </Route>
 
       <Route path="receptionist" element={<RecLauncher />}>
-        <Route path=""  element={<RecDashboard />} />
-        <Route path="dashboard"  element={<RecDashboard />} />
-        <Route path="doctors"  element={<RecDoctor />} />
-        <Route path="patients"  element={<RecPatient />} />
-        <Route path="addNewAppointment"  element={<RecNewAppointment />} />
-        <Route path="bed"  element={<RecBed />} />
-        <Route path="help"  element={<RecHelpAndSupport />} />
-        <Route path="profile"  element={<RecProfile />} />
+        <Route path="" element={<RecDashboard />} />
+        <Route path="dashboard" element={<RecDashboard />} />
+        <Route path="doctors" element={<RecDoctor />} />
+        <Route path="patients" element={<RecPatient />} />
+        <Route path="addNewAppointment" element={<RecNewAppointment />} />
+        <Route path="bed" element={<RecBed />} />
+        <Route path="help" element={<RecHelpAndSupport />} />
+        <Route path="profile" element={<RecProfile />} />
       </Route>
 
       <Route path="accountant" element={<AccLauncher />}>
-        <Route path=""  element={<AccDashboard />} />
-        <Route path="dashboard"  element={<AccDashboard />} />
-        <Route path="patientBill"  element={<AccPatient />} />
-        <Route path="appointmentDetials"  element={<AccAppointment />} />
-        <Route path="finance"  element={<AccFinance />} />
-        <Route path="help"  element={<AccHelpAndSupport />} />
-        <Route path="profile"  element={<AccProfile />} />
+        <Route path="" element={<AccDashboard />} />
+        <Route path="dashboard" element={<AccDashboard />} />
+        <Route path="patientBill" element={<AccPatient />} />
+        <Route path="appointmentDetials" element={<AccAppointment />} />
+        <Route path="finance" element={<AccFinance />} />
+        <Route path="help" element={<AccHelpAndSupport />} />
+        <Route path="profile" element={<AccProfile />} />
       </Route>
     </Route>
   )
