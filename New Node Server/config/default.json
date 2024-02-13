@@ -1,0 +1,8 @@
+{
+    "host" : "localhost",
+    "database" : "project_db_v1",
+    "user" : "root",
+    "password" : "80558",
+    "PORT" : 9999,
+    "jwtkey" : "Roronoa3"
+}
