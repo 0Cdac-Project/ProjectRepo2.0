@@ -6,7 +6,6 @@ function ProtectedRoute(props) {
   const { pathname } = location;
   const token = window.sessionStorage.getItem("token");
   const navigate = useNavigate();
-
   React.useEffect(() => {
     if (token == null) {
       console.log(token);

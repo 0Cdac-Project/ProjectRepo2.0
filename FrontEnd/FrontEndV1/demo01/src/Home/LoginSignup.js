@@ -36,13 +36,14 @@ function LoginSignup() {
     } else if (event.target.getAttribute("name") === "Sign Up") {
       if (action === "Sign Up") {
         axios
-          .post("http://localhost:9999/signup", userInfo)
+          .post("http://127.0.0.1:9999/signup", userInfo)
           .then((reply) => {});
       } else {
         setAction("Sign Up");
       }
     } else if (event.target.getAttribute("name") === "Login") {
       if (action === "Login") {
+        console.log(userInfo.LoginType)
         axios.post("http://localhost:9999/login", userInfo).then((reply) => {
           console.log(reply.data);
           switch (reply.data.message) {
