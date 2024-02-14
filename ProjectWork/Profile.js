@@ -28,7 +28,7 @@ function Profile() {
                           </p>
                           <button className="btn btn-primary">Edit Profile</button>
                           <button className="btn btn-outline-primary">
-                            Other 
+                            Others 
                           </button>
                         </div>
                       </div>
