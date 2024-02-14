@@ -1,11 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
 
-const url = "http://localhost:8080/api/v1/appointments/findAll";
+const url = "http://localhost:8080/api/v1/bills/managementId/3";
 function AppointmentDetails() {
 
     const [appointments, setAppointments] = useState([]);
-    // debugger;
 
     const getAppoints = ()=>{
         axios
@@ -21,10 +20,10 @@ function AppointmentDetails() {
         <>
             <div className="page-header">
                 <h1>Appointments Details of Patient</h1>
-                <button onClick={getAppoints}>show appointments</button>
+                <button className="button-30" onClick={getAppoints}>show appointments</button>
             </div>
-            <div class="table-responsive">
-                    <table class="fl-table">
+            <div className="table-responsive">
+                    <table className="fl-table">
                         <thead>
                             <th>Id</th>
                             <th>Patient Name</th>
@@ -36,13 +35,13 @@ function AppointmentDetails() {
                         <tbody>
                             {appointments.map((res) => {
                                 return (
-                                <tr key={res.appointmentID}>
-                                    <td>{res.appointmentID}</td>
-                                    <td>{res.patientID}</td>
-                                    <td>{res.medicalCondition}</td>
-                                    <td>{res.medication}</td>
-                                    <td>{res.doctorID}</td>
-                                    <td>{res.appointmentDateTime}</td>
+                                <tr key={res.appointment.appointmentID}>
+                                    <td>{res.appointment.appointmentID}</td>
+                                    <td>{res.appointment.patient.patientFirstName+" "+res.appointment.patient.patientLastName}</td>
+                                    <td>{res.appointment.medicalCondition}</td>
+                                    <td>{res.appointment.medication}</td>
+                                    <td>{res.appointment.doctor.doctorFirstName}</td>
+                                    <td>{res.appointment.appointmentDateTime}</td>
                                 </tr>
                                 );
                             })}
