@@ -9,18 +9,20 @@ const HelpAndSupport = () => {
       <section id="section2">
         <h2 id="h22">Frequently Asked Questions (FAQs)</h2>
         <ul id="ul2">
-          <li id="li2">
-            <strong>Q: How do I schedule an appointment?</strong>
-            <br />A: You can schedule an appointment through our online portal or by contacting our reception.
-          </li>
-          <li id="li2">
-            <strong>Q: What are the visiting hours?</strong>
-            <br />A: Visiting hours are from 10:00 AM to 8:00 PM every day.
-          </li>
-          <li id="li2">
-            <strong>Q: How can I pay my bills online?</strong>
-            <br />A: You can pay your bills through our secure online payment system on our website.
-          </li>
+        <ul>
+            <li><strong>Q:What is brand New General/New Private?</strong><br/>A: A new general patient is one who will be seen by any doctor in the concerned unit.
+                A new private patient is one who gets to see a consultant with whom he has booked an appointment for the first time in the hospital .</li>
+
+            <li><strong>Q:How to make new appointments online?</strong><br/>A:Please login our website: **************
+            -- Are you a patient -- Book an Appointment -- Proceed -- New patient
+            Kindly fill in the details and proceed for appointments choose the department and read the description about the particular department and finally make the payment. Payments can be done through - Net Banking / Debit & Credit card .</li>
+
+            <li><strong>Q: How to make repeat appointments online?</strong><br/>A:Please login our website: **************
+            -- Are you a patient -- Book an Appointment -- Proceed -- With Hospital Number
+            Please type your Hospital number and Year of Birth. Choose the department using the option frequently visited clinic (or) New Clinic and read the description about the particular department before proceeding for payment.Payment can be done through Net Banking/Debit & Credit card. .</li>
+
+            <li><strong>Q:Is there any charge to get the new registration form?</strong><br/>A:No, you can get the New registration form from the reception (400) at free of cost for new general patients.</li>    
+        </ul>
         </ul>
 
         <h2 id="h22">Contact Us for Assistance</h2>
