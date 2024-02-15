@@ -26,9 +26,13 @@ public class BillingController {
     public void addNewBill(@RequestBody Billing billing) {
         billingService.addNewBill(billing);
     }
-    @GetMapping("/{id}")
+    @GetMapping("/billId/{id}")
     public Billing getBillByID(@PathVariable Integer id) {
         return billingService.getBillById(id);
     }
 
+    @GetMapping("/managementId/{management_id}")
+    public List<Billing> getBillsByManagementId(@PathVariable Integer management_id){
+        return billingService.getBillsByManagementId(management_id);
+    }
 }

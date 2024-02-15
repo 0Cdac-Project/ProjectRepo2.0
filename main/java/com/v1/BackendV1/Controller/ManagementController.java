@@ -2,6 +2,7 @@ package com.v1.BackendV1.Controller;
 
 import com.v1.BackendV1.Classes.Doctor;
 import com.v1.BackendV1.Classes.Management;
+import com.v1.BackendV1.Classes.Patient;
 import com.v1.BackendV1.Service.DoctorService;
 import com.v1.BackendV1.Service.ManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,4 +46,8 @@ public class ManagementController {
         return managementService.getManagementByEmailAndPassword(management.getmanagementUsername(),management.getmanagementPassword());
     }
 
+    @GetMapping("/findUser/{username}")
+    public Management getManagementByUsernameOrEmail(@PathVariable String username) {
+        return managementService.getManagementByUsernameOrEmail(username);
+    }
 }

@@ -2,6 +2,7 @@ package com.v1.BackendV1.Controller;
 
 import com.v1.BackendV1.Classes.Doctor;
 import com.v1.BackendV1.Classes.Management;
+import com.v1.BackendV1.Classes.Patient;
 import com.v1.BackendV1.Service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -38,5 +39,8 @@ public class DoctorController {
     public Doctor getDoctorByEmailAndPassword(@RequestBody Doctor doctor) {
         return doctorService.getDoctorByEmailAndPassword(doctor.getDoctorEmail(),doctor.getDoctorPassword());
     }
-
+    @GetMapping("/findUser/{username}")
+    public Doctor getDoctorByUsernameOrEmail(@PathVariable String username) {
+        return doctorService.getDoctorByUsernameOrEmail(username);
+    }
 }

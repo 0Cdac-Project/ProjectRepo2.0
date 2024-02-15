@@ -24,9 +24,11 @@ public class DoctorService {
     }
 
     public void addDoctor(Doctor doctor) {
-        Optional<Doctor> optionalPatient = doctorRepository.findById(doctor.getDoctorID());
-        if (optionalPatient.isPresent()) {
-            throw new IllegalStateException("Duplicate Entry");
+        if(doctor.getDoctorID()!=null) {
+            Optional<Doctor> optionalPatient = doctorRepository.findById(doctor.getDoctorID());
+            if (optionalPatient.isPresent()) {
+                throw new IllegalStateException("Duplicate Entry");
+            }
         }
         doctorRepository.save(doctor);
     }
@@ -37,5 +39,9 @@ public class DoctorService {
 
     public Doctor getDoctorByEmailAndPassword(String doctorEmail, String doctorPassword) {
         return doctorRepository.findByDoctorUsernameAndDoctorPassword(doctorEmail,doctorPassword).orElseThrow();
+    }
+
+    public Doctor getDoctorByUsernameOrEmail(String username) {
+        return doctorRepository.findByDoctorUsernameOrDoctorEmail(username,username).orElseThrow();
     }
 }

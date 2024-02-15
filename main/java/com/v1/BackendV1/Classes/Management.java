@@ -111,6 +111,14 @@ public class Management {
         this.extraCol1 = extraCol1;
     }
 
+    public byte[] getManagementImage() {
+        return managementImage;
+    }
+
+    public void setManagementImage(byte[] managementImage) {
+        this.managementImage = managementImage;
+    }
+
     public Integer getmanagementID() {
         return managementID;
     }

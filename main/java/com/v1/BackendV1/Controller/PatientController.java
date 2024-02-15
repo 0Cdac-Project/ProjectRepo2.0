@@ -36,4 +36,9 @@ private final PatientService patientService;
     public Patient getPatientByEmailAndPassword(@RequestBody Patient patient) {
         return patientService.getPatientByEmailAndPassword(patient.getPatientEmail(),patient.getPatientPassword());
     }
+
+    @GetMapping("/findUser/{username}")
+    public Patient getPatientByUsernameOrEmail(@PathVariable String username) {
+        return patientService.getPatientByUsernameOrEmail(username);
+    }
 }

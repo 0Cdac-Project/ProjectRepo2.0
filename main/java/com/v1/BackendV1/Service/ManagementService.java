@@ -44,4 +44,8 @@ public class ManagementService {
     public List<Management> getManagementByCategory(String category) {
         return managementRepository.findByManagementCategory(category);
     }
+
+    public Management getManagementByUsernameOrEmail(String username) {
+        return managementRepository.findByManagementUsernameOrManagementEmail(username,username).orElseThrow();
+    }
 }

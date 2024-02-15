@@ -39,4 +39,8 @@ public class PatientService {
     public Patient getPatientByEmailAndPassword(String patientEmail, String patientPassword) {
         return patientRepository.findByPatientUsernameAndPatientPassword(patientEmail,patientPassword).orElseThrow();
     }
+
+    public Patient getPatientByUsernameOrEmail(String username) {
+        return patientRepository.findByPatientUsernameOrPatientEmail(username,username).orElseThrow();
+    }
 }

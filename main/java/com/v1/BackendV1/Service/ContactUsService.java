@@ -24,10 +24,11 @@ public class ContactUsService {
     }
 
     public void addNewContact(ContactUs contactUs) {
+        if(contactUs.getContactId()!=null){
         Optional<ContactUs> optionalPatient = contactUsRepository.findById(contactUs.getContactId());
         if (optionalPatient.isPresent()) {
             throw new IllegalStateException("Duplicate Entry");
-        }
+        }}
         contactUsRepository.save(contactUs);
     }
 
