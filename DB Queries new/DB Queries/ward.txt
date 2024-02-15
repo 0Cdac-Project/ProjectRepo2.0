@@ -1,0 +1,11 @@
+INSERT INTO wards(ward_id, ward_category, ward_location, ward_name) VALUES
+(1, 'General Wards', '1st Floor', 'B2'),
+(2, 'Intensive Care Units', '4th Floor', 'A1'),
+(3, 'Specialty Wards', '1st Floor', 'B3'),
+(4, 'Intensive Care Units', '4th Floor', 'B1'),
+(5, 'Specialty Wards', '1st Floor', 'A1'),
+(6, 'Intensive Care Units', '3rd Floor', 'C2'),
+(7, 'Specialty Wards', '4th Floor', 'B1'),
+(8, 'General Wards', '2nd Floor', 'B3'),
+(9, 'General Wards', '3rd Floor', 'B1'),
+(10, 'General Wards', '1st Floor', 'C1');
