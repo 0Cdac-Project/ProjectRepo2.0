@@ -5,6 +5,7 @@ function RLauncher() {
     var logout = ()=>
     {
       window.sessionStorage.removeItem("token");
+      window.sessionStorage.removeItem("user");
       navigate("/");
       toast.success("Logged Out Successfully")
     }  

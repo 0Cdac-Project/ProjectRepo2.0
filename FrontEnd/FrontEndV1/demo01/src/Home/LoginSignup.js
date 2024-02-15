@@ -142,6 +142,7 @@ function LoginSignup() {
                 value={userInfo.managementType}
                 onChange={inputChange}
               >
+                 <option selected>Select Management Type</option>
                 <option value="Admin">Admin</option>
                 <option value="Accountant">Accountant</option>
                 <option value="Receptionist">Reception</option>

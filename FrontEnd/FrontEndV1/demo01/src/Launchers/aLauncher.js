@@ -1,14 +1,17 @@
+import { useSelector } from "react-redux";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { selectUser } from "../Redux/Reducer/userslice";
 
 function ALauncher() {
+  const user = useSelector(selectUser);
   const navigate = useNavigate();
-  var logout = ()=>
-  {
+  var logout = () => {
     window.sessionStorage.removeItem("token");
+    window.sessionStorage.removeItem("user");
     navigate("/");
-    toast.success("Logged Out Successfully")
-  }
+    toast.success("Logged Out Successfully");
+  };
   return (
     <>
       <label htmlFor="menu-toggle" />
@@ -28,10 +31,14 @@ function ALauncher() {
 
         <div className="side-content">
           <div className="profile">
-            <div
-              className="profile-img bg-img"
-              style={{ backgroundImage: "url(http://localhost:3000//Sai.jpg)" }}
-            ></div>
+            <div className="profile-img bg-img">
+              <img
+                src={`data:image/jpeg;base64, ${user.managementImage}`}
+                alt="Admin"
+                className="rounded-circle"
+                width="72"
+              />
+            </div>
             <h5 style={{ color: "whitesmoke" }}>Sainath Ibitwar</h5>
           </div>
 
@@ -100,18 +107,19 @@ function ALauncher() {
             <div className="header-menu">
               <div className="user">
                 <NavLink to="profile">
-                  <div
-                    className="bg-img"
-                    style={{
-                      backgroundImage:
-                        "url(http://localhost:3000/Sai.jpg)",
-                    }}
-                  ></div>
+                  <div className="bg-img" style={{marginRight:'20px'}}>
+                    <img
+                      src={`data:image/jpeg;base64, ${user.managementImage}`}
+                      alt="Admin"
+                      className="rounded-circle"
+                      width="50"
+                    />
+                  </div>
                 </NavLink>
 
                 <span
                   className="las la-power-off"
-                  style={{ scale: "2" }}
+                  style={{ scale: "3" ,marginTop:"10px"}}
                   onClick={logout}
                 ></span>
               </div>
