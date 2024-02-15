@@ -1,4 +1,21 @@
+import axios from "axios";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import { selectUser } from "../Redux/Reducer/userslice";
+
 function AppointmentHistory() {
+    const user = useSelector(selectUser);
+    const [appointmentHistory, setAppointmentHistory] = useState([]);
+    const urlHistory = "http://localhost:8080/api/v1/appointments";
+
+    useEffect(() => {
+        axios.get(urlHistory + `/by_patient/${user.patientID}`).then((result) => {
+            console.log(result);
+            setAppointmentHistory(result.data);
+    }).catch((error) => {
+        console.error("Error fetching data:", error);
+    })}, []);
+
     return ( 
         <>
             <div className="page-header">
@@ -8,108 +25,42 @@ function AppointmentHistory() {
 
             <div className="container-fluid">
             <div className="accordion" id="accordionPanelsStayOpenExample">
-                <div className="accordion-item">
-                  <h2 className="accordion-header">
-                    <button className="accordion-button bg-secondary-subtle" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-                        Appointment #1
+                {appointmentHistory.map((result) => (
+                    <div className="accordion-item" key={result.appointmentID}>
+                    <h2 className="accordion-header">
+                      <button className="accordion-button bg-secondary-subtle" type="button" data-bs-toggle="collapse" data-bs-target={`#panelsStayOpen-collapse-${result.appointmentID}`} aria-expanded="false" aria-controls={`panelsStayOpen-collapse-${result.appointmentID}`}>
+                        Appointment 
                     </button>
-                  </h2>
-                  <div id="panelsStayOpen-collapseOne" className="accordion-collapse collapse show">
-                    <div className="accordion-body">
-                        <span>
-                            Appointment id: <span>WPT</span>
-                        </span>
-                        <br/>
-                        <br/>
-                        <span>
-                            Doctor: <span className="fst-italic">Mayuresh P., MD</span>
-                        </span>
-                        <br/>
-                        <br/>
-                        <span>
-                            Appointment date and time: <span>15-10-2023 01:20:00</span>
-                        </span>
-                        <br/>
-                        <br/>
-                        <span>
-                            Medical condition: <span>Narcolepsy</span>
-                        </span>
-                        <br/>
-                        <br/>
-                        <span>
-                            Medication/Treatment: <span>Sodium oxybate (Xyrem) and oxybate salts (Xywav)</span>
-                        </span>
+                    </h2>
+                    <div id={`panelsStayOpen-collapse-${result.appointmentID}`} className="accordion-collapse collapse">
+                      <div className="accordion-body">
+                          <span>
+                              Appointment id: <span>{result.appointmentID}</span>
+                          </span>
+                          <br/>
+                          <br/>
+                          <span>
+                              Doctor: <span className="fst-italic">{result.doctor.doctorFirstName} {result.doctor.doctorLastName}</span>
+                          </span>
+                          <br/>
+                          <br/>
+                          <span>
+                              Appointment date and time: <span>{result.appointmentDateTime}</span>
+                          </span>
+                          <br/>
+                          <br/>
+                          <span>
+                              Medical condition: <span>{result.medicalCondition}</span>
+                          </span>
+                          <br/>
+                          <br/>
+                          <span>
+                              Medication/Treatment: <span>{result.medication}</span>
+                          </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="accordion-item">
-                  <h2 className="accordion-header">
-                    <button className="accordion-button collapsed bg-secondary-subtle" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
-                        Appointment #2
-                    </button>
-                  </h2>
-                  <div id="panelsStayOpen-collapseTwo" className="accordion-collapse collapse">
-                    <div className="accordion-body">
-                        <span>
-                            Appointment id: <span>Java</span>
-                        </span>
-                        <br/>
-                        <br/>
-                        <span>
-                            Doctor: <span className="fst-italic">Mayur K., MD</span>
-                        </span>
-                        <br/>
-                        <br/>
-                        <span>
-                            Appointment date and time: <span>30-12-2023 11:30:00</span>
-                        </span>
-                        <br/>
-                        <br/>
-                        <span>
-                            Medical condition: <span>Atrial Septal Defect (hole in the heart)</span>
-                        </span>
-                        <br/>
-                        <br/>
-                        <span>
-                            Medication/Treatment: <span>Open Heart Surgery</span>
-                        </span>
-                    </div>
-                  </div>
-                </div>
-                <div className="accordion-item">
-                  <h2 className="accordion-header">
-                    <button className="accordion-button collapsed bg-secondary-subtle" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
-                        Appointment #3
-                    </button>
-                  </h2>
-                  <div id="panelsStayOpen-collapseThree" className="accordion-collapse collapse">
-                    <div className="accordion-body">
-                        <span>
-                            Appointment id: <span>ADS</span>
-                        </span>
-                        <br/>
-                        <br/>
-                        <span>
-                            Doctor: <span className="fst-italic">Sandesh T., MD</span>
-                        </span>
-                        <br/>
-                        <br/>
-                        <span>
-                            Appointment date and time: <span>05-01-2024 02:00:00</span>
-                        </span>
-                        <br/>
-                        <br/>
-                        <span>
-                            Medical condition: <span>Migraine</span>
-                        </span>
-                        <br/>
-                        <br/>
-                        <span>
-                            Medication/Treatment: <span>Intranasal zavegepant (Zavzpret)</span>
-                        </span>
-                    </div>
-                  </div>
-                </div>
+                ))}
               </div>
         </div>
         </>

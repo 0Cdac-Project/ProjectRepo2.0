@@ -1,52 +1,69 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 
 function Doctors() {
-  var [doctors, setDoctors] = useState([]);
-  var [doctor, setDoctor] = useState({
-    doctorID: null,
-    doctorFirstName: "",
-    doctorLastName: "",
-    doctorDob: null,
-    doctorGender: "",
-    doctorMobile: "",
-    doctorEmergencyContact: "",
-    doctorEmail: "",
-    doctorNationality: "",
-    doctorAddress: "",
-    doctorGovtID: "",
-    doctorPassport: "",
-    doctorMaritalStatus: "",
-    doctorQualification: "",
-    doctorDepartment: "",
-    doctorDesignation: "",
-    doctorSpeciality: "",
-    doctorExperience: null,
-    doctorAvailability: "",
-    doctorShifts: null,
-    doctorSalary: null,
-    doctorFees: null,
-    doctorPhotograph: "",
-    doctorUsername: "",
-    doctorPassword: "",
-    doctorHireDate: null,
-    extraCol1: "",
-  });
+  const [doctors, setDoctors] = useState([]);
+  const [doctorName, setDoctorName] = useState(""); 
 
-  const urlDoctor = "http://localhost:8080/api/v1/doctor";
+  // var [doctor, setDoctor] = useState({
+  //   doctorID: null,
+  //   doctorFirstName: "",
+  //   doctorLastName: "",
+  //   doctorDob: null,
+  //   doctorGender: "",
+  //   doctorMobile: "",
+  //   doctorEmergencyContact: "",
+  //   doctorEmail: "",
+  //   doctorNationality: "",
+  //   doctorAddress: "",
+  //   doctorGovtID: "",
+  //   doctorPassport: "",
+  //   doctorMaritalStatus: "",
+  //   doctorQualification: "",
+  //   doctorDepartment: "",
+  //   doctorDesignation: "",
+  //   doctorSpeciality: "",
+  //   doctorExperience: null,
+  //   doctorAvailability: "",
+  //   doctorShifts: null,
+  //   doctorSalary: null,
+  //   doctorFees: null,
+  //   doctorImage: "",
+  //   doctorUsername: "",
+  //   doctorPassword: "",
+  //   doctorHireDate: null,
+  //   extraCol1: "",
+  // });
 
-  const getDoctor = () => {
-    axios
-      .get(urlDoctor)
-      .then((res) => {
-        setDoctors(res.data);
-        console.log(doctors);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+const urlDoctor = "http://localhost:8080/api/v1/doctor";
+
+useEffect(() => {
+  axios.get(urlDoctor + "/findAll").then((result) => {
+    console.log(result);
+    setDoctors(result.data);
+}).catch((error) => {
+    console.error("Error fetching data:", error);
+})}, []);
+
+// const inputChange = (args) => {
+//   var copyofDoctor = { ...doctorName };
+//   copyofUser[args.target.name] = args.target.value;
+//   setDoctorName(copyofDoctor);
+// };
+
+  // const getDoctor = () => {
+  //   axios
+  //     .get(urlDoctor + "/findAll")
+  //     .then((res) => {
+  //       console.log(res);
+  //       setDoctors(res.data);
+  //       console.log(doctors);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
   return (
     <div className="container">
@@ -54,13 +71,19 @@ function Doctors() {
         <h1>Doctors</h1>
       </div>
       <div>
-        <button onClick={getDoctor} className="btn btn-primary">
+        {/* <button onClick={getDoctor} className="btn btn-primary">
           Show Data
-        </button>
+        </button> */}
+        <br></br>
+        <div>
+          <label>Search Doctor: </label> &nbsp;
+          <input type="text" id="searchDoctor" placeholder="Enter name of the doctor"></input>
+        </div>
         <div id="content" className="row">
           {doctors.map((res) => {
+            const imageSrc = `data:image/jpeg;base64,${res.doctorImage}`;
             return (
-              <div className="row">
+              <div className="row" key={res.doctorID}>
                 <div className="col-md-8" id="docterList">
                   <h6>Id {res.doctorID}</h6>
                   <h6>
@@ -69,7 +92,7 @@ function Doctors() {
                   <h6>Speciality: {res.doctorSpeciality}</h6>
                   <h6>Department: {res.doctorDepartment}</h6>
                   <h6>Designation: {res.doctorDesignation}</h6>
-                  <h6>Qualification - {res.doctorQualification}</h6>
+                  <h6>Qualification: {res.doctorQualification}</h6>
                   <h6>Experience: {res.doctorExperience}</h6>
                   <h6>
                     Contact Details: {res.doctorEmail} | {res.doctorMobile}
@@ -78,7 +101,7 @@ function Doctors() {
                 <div className="col-md-3">
                   <center>
                     <img
-                      src={process.env.PUBLIC_URL + res.doctorPhotograph}
+                      src={imageSrc}
                       alt="Doctor"
                       className="img-fluid"
                       id="doctorImg"
