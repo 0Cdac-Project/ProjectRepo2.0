@@ -22,9 +22,9 @@ function Profile() {
                           height="100"
                         />
                         <div className="mt-3">
-                          <h4>Sainath Ibitwar</h4>
+                          <h4>Olivia Larry</h4>
                           <p className="text-muted font-size-sm">
-                            Nanded, Maharashtra, India
+                            Boston, USA
                           </p>
                           <button className="btn btn-primary">Edit Profile</button>
                           <button className="btn btn-outline-primary">
@@ -57,7 +57,7 @@ function Profile() {
                               ></path></svg>Email
                           </h6>
                           <span className="text-secondary"
-                            >ibitwarsainath1234@gmail.com</span
+                            >LuluAlcorn949@example.com</span
                           >
                         </li>
                         <li

@@ -6,23 +6,25 @@
   background: #fff;
   padding-bottom: 30px;
   border-radius: 30px;
-  backdrop-filter: blur(80px);
-  background: transparent;
 }
 
 #loginbody1 {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
+  width: fit-content;
+  margin: auto;
+  width: 50%;
+  border-radius: 48px;
+  padding: 10px;
+  margin-top: 25px;
 }
 
 #loginheader {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 9px;
   width: 100%;
-  margin-top: 30px;
 }
 
 #logintext {
@@ -39,10 +41,9 @@
 }
 
 #logininputs {
-  margin-top: 55px;
   display: flex;
   flex-direction: column;
-  gap: 25px;
+  gap: 15px;
 }
 
 #inputlogin {
@@ -84,7 +85,7 @@
 #submit-container {
   display: flex;
   gap: 30px;
-  margin: 60px auto;
+  margin: 10px;
 }
 
 .submit {

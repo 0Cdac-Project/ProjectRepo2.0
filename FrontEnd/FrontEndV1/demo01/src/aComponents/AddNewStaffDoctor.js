@@ -8,7 +8,7 @@ function AddNewStaffDocter() {
       <div className="cont1">
       <label className="label1_1">Select Role:</label>
       <NavLink to="addDoctor"><button className="button-30">Doctor</button></NavLink>
-      <NavLink to="addStaff"><button className="button-30">Staff</button></NavLink>
+      <NavLink to="addStaff"><button className="button-30">Management</button></NavLink>
       </div>
       <Outlet />
     </>

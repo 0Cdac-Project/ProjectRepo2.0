@@ -47,7 +47,7 @@ function Dashboard() {
                                 23/11/23
                             </td>
                             <td>
-                                Dr. Ramesh Babaria
+                                Dr. John Mark
                             </td>
                             <td>
                                 Cough and Fever
@@ -69,7 +69,7 @@ function Dashboard() {
                                 12/10/23
                             </td>
                             <td>
-                                Dr. Sandeep Sharma
+                                Dr. Alex Chapiro
                             </td>
                             <td>
                                 Body Pain
@@ -91,7 +91,7 @@ function Dashboard() {
                                 15/09/23
                             </td>
                             <td>
-                                Dr. Ravindra Kulkarni
+                                Dr. Jason Haywire
                             </td>
                             <td>
                                 Tooth Pain
@@ -110,9 +110,9 @@ function Dashboard() {
                 </table>
             </div>
         </div>
-        <div className="container" style={{backgroundColor : "lightblue", height : "500px"}}>
+        {/* <div className="container" style={{backgroundColor : "lightblue", height : "500px"}}>
             <h1>2 div</h1>
-        </div>
+        </div> */}
         </div>
     </>
         

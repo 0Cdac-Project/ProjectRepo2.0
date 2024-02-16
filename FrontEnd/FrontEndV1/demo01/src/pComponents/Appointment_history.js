@@ -8,13 +8,26 @@ function AppointmentHistory() {
     const [appointmentHistory, setAppointmentHistory] = useState([]);
     const urlHistory = "http://localhost:8080/api/v1/appointments";
 
+    // useEffect(() => {
+    //     axios.get(urlHistory + `/by_patient/${user.patientID}`).then((result) => {
+    //         console.log(result);
+    //         setAppointmentHistory(result.data);
+    // }).catch((error) => {
+    //     console.error("Error fetching data:", error);
+    // })}, []);
+
     useEffect(() => {
-        axios.get(urlHistory + `/by_patient/${user.patientID}`).then((result) => {
-            console.log(result);
-            setAppointmentHistory(result.data);
-    }).catch((error) => {
-        console.error("Error fetching data:", error);
-    })}, []);
+        if (user && user.patientID) {
+            axios.get(urlHistory + `/by_patient/${user.patientID}`)
+                .then((result) => {
+                    console.log(result);
+                    setAppointmentHistory(result.data);
+                })
+                .catch((error) => {
+                    console.error("Error fetching data:", error);
+                });
+        }
+    }, [user]);
 
     return ( 
         <>
@@ -29,7 +42,7 @@ function AppointmentHistory() {
                     <div className="accordion-item" key={result.appointmentID}>
                     <h2 className="accordion-header">
                       <button className="accordion-button bg-secondary-subtle" type="button" data-bs-toggle="collapse" data-bs-target={`#panelsStayOpen-collapse-${result.appointmentID}`} aria-expanded="false" aria-controls={`panelsStayOpen-collapse-${result.appointmentID}`}>
-                        Appointment 
+                        Appointment Id: {result.appointmentID}
                     </button>
                     </h2>
                     <div id={`panelsStayOpen-collapse-${result.appointmentID}`} className="accordion-collapse collapse">

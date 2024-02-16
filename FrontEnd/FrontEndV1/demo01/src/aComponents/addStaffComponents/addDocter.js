@@ -7,7 +7,7 @@ function AddDocter() {
     doctorID: 0,
     doctorFirstName: "",
     doctorLastName: "",
-    doctorDob: null,
+    doctorDob: "1999-09-09",
     doctorAge: 0,
     doctorGender: "",
     doctorMobile: "",
@@ -24,15 +24,17 @@ function AddDocter() {
     doctorSpeciality: "",
     doctorExperience: 0,
     doctorAvailability: "",
-    doctorShifts: 0,
+    doctorShifts: "",
     doctorSalary: 0,
     doctorFees: 0,
     doctorImage: null,
     doctorUsername: "",
-    doctorPassword: "",
-    doctorHireDate: null,
+    doctorPassword: "12345",
+    doctorHireDate: "1999-09-09",
   });
-  const emailPattern = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/);
+  const emailPattern = new RegExp(
+    /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  );
   const phonePattern = new RegExp(
     /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/
   );
@@ -71,31 +73,39 @@ function AddDocter() {
       doctorFees: null,
       doctorImage: "",
       doctorUsername: "124",
-      doctorPassword: "A123456",
+      doctorPassword: "A12345670",
       doctorHireDate: null,
     });
   };
 
   const addNewDocter = async () => {
-    if (doctor.doctorFirstName.length === 0) {
+    if (doctor.doctorUsername.length === 0) {
+      toast.warning("Enter UserName");
+    } else if (!lengthcheck.test(doctor.doctorUsername)) {
+      toast.warning("Username Length should be greater than 8 less than 20");
+    } else if (doctor.doctorPassword.length === 0) {
+      toast.warning("Enter UserName");
+    } else if (!lengthcheck.test(doctor.doctorPassword)) {
+      toast.warning("Password Length should be greater than 8 Less than 20");
+    } else if (doctor.doctorFirstName.length === 0) {
       toast.warning("Enter First Name");
     } else if (doctor.doctorLastName.length === 0) {
       toast.warning("Enter Last Name");
-    } else if (doctor.doctorUsername.length === 0) {
-      toast.warning("Enter User");
     } else if (doctor.doctorEmail.length === 0) {
       toast.warning("Enter Email");
-    } else if (!emailPattern.test(doctor.doctorEmail.length)) {
+    } else if (!emailPattern.test(doctor.doctorEmail)) {
       toast.warning("Enter Valid Email");
     } else if (doctor.doctorMobile.length === 0) {
       toast.warning("Enter Contact Info");
-    } else if (!phonePattern.test(doctor.doctorMobile.length)) {
+    } else if (!phonePattern.test(doctor.doctorMobile)) {
       toast.warning("Enter Valid Contact Info");
     } else if (doctor.doctorGovtID.length === 0) {
       toast.warning("Enter Government Id Proof");
-    } else if (!lengthcheck.test(doctor.doctorGovtID.length)) {
-      toast.warning("Enter Valid Contact Info");
-    } else if (doctor.doctorQualification.length === "Select Department") {
+    } else if (!lengthcheck.test(doctor.doctorGovtID)) {
+      toast.warning("Enter Valid Governement Info");
+    } else if (doctor.doctorQualification === doctor.doctorPassport) {
+      toast.warning("Passport id should not be same as government Id");
+    } else if (doctor.doctorQualification.length === 0) {
       toast.warning("Enter Qualification");
     } else if (doctor.doctorDepartment.length === 0) {
       toast.warning("Enter Department");
@@ -104,20 +114,21 @@ function AddDocter() {
     } else {
       toast.success("hiii");
       console.log(doctor);
-      // await axios
-      //   .post(url, doctor)
-      //   .then((res) => {
-      //     if (res.status === 200) {
-      //       console.log("Success");
-      //       toast.success("Successfully registered the user");
-      //       Reset();
-      //     } else {
-      //       toast.error(res["error"]);
-      //     }
-      //   })
-      //   .catch((err) => {
-      //     toast.error(err);
-      //   });
+      await axios
+        .post(url, doctor)
+        .then((res) => {
+          if (res.status === 200) {
+            console.log("Success");
+            toast.success("Successfully registered the user");
+            Reset();
+          } else {
+            toast.error(res["error"]);
+          }
+        })
+        .catch((err) => {
+          console.log(err.request.response);
+          toast.error(err.request.response.substring(130, 145));
+        });
     }
   };
   return (
@@ -194,7 +205,9 @@ function AddDocter() {
                 value={doctor.doctorGender}
                 onChange={handleChange}
               >
-                <option selected>Select Gender</option>
+                <option value="" disabled defaultValue>
+                  Select Gender
+                </option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
                 <option value="Other">Other</option>
@@ -296,7 +309,9 @@ function AddDocter() {
                 value={doctor.doctorMaritalStatus}
                 onChange={handleChange}
               >
-                <option selected>Select Marrital Status</option>
+                <option value="" disabled defaultValue>
+                  Select Marrital Status
+                </option>
                 <option value="Single">Single</option>
                 <option value="Married">Married</option>
                 <option value="Divorced">Divorced</option>
@@ -324,7 +339,9 @@ function AddDocter() {
                 value={doctor.doctorDepartment}
                 onChange={handleChange}
               >
-                <option selected>Select Department</option>
+                <option value="" disabled defaultValue>
+                  Select Department
+                </option>
                 <option value="Cardiology">Cardiology</option>
                 <option value="Oncology">Oncology</option>
                 <option value="Neurology">Neurology</option>
@@ -349,7 +366,9 @@ function AddDocter() {
                 value={doctor.doctorDesignation}
                 onChange={handleChange}
               >
-                <option selected>Select Designation</option>
+                <option value="" disabled defaultValue>
+                  Select Designation
+                </option>
                 <option value="Consultant">Consultant</option>
                 <option value="Specialist">Specialist</option>
                 <option value="Attending Physician">Attending Physician</option>
@@ -392,7 +411,9 @@ function AddDocter() {
                 value={doctor.doctorAvailability}
                 onChange={handleChange}
               >
-                <option selected>Select Availability</option>
+                <option value="" disabled defaultValue>
+                  Select Availability
+                </option>
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
               </select>
@@ -407,10 +428,12 @@ function AddDocter() {
                 value={doctor.doctorShifts}
                 onChange={handleChange}
               >
-                <option selected>Select Shifts</option>
-                <option value="I">I</option>
-                <option value="II">II</option>
-                <option value="III">III</option>
+                <option value="" disabled defaultValue>
+                  Select Shifts
+                </option>
+                <option value="1">I</option>
+                <option value="2">II</option>
+                <option value="3">III</option>
               </select>
               <label htmlFor="doctorShifts">Shifts</label>
             </div>
@@ -467,16 +490,20 @@ function AddDocter() {
               <label htmlFor="doctorHireDate">Hire Date</label>
             </div>
           </div>
-          <label for="submit"></label>
-          <button
-            className="button-30 w-25"
-            name="submit"
-            id="submit"
-            onClick={addNewDocter}
-            // style={{alignItems:'center'}}
-          >
-            Submit
-          </button>
+          <div className="col-4"></div>
+          <div className="col-4" style={{ marginLeft: "11%" }}>
+            <label for="submit"></label>
+            <button
+              className="button-30 w-25"
+              name="submit"
+              id="submit"
+              onClick={addNewDocter}
+              // style={{alignItems:'center'}}
+            >
+              Submit
+            </button>
+          </div>
+          <div className="col-4"></div>
         </div>
       </div>
     </>

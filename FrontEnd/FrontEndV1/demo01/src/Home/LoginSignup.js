@@ -19,62 +19,105 @@ function LoginSignup() {
     LoginType: "",
     managementType: "",
   });
+  const [userInfoSignup, setUserInfoSignup] = useState({
+    firstName: "",
+    lastName: "",
+    username: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
 
   const inputChange = (args) => {
     var copyofUser = { ...userInfo };
     copyofUser[args.target.name] = args.target.value;
     setUserInfo(copyofUser);
   };
-
+  const inputChangeSignup = (args) => {
+    var copyofUser = { ...userInfoSignup };
+    copyofUser[args.target.name] = args.target.value;
+    setUserInfoSignup(copyofUser);
+  };
+  const emailPattern = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/);
+  const lengthcheck = new RegExp(/^.{8,20}$/);
   const Submit = (event) => {
-    if (userInfo.LoginType.length === 0) {
-      toast.warning("Select Type Of User");
-    } else if (userInfo.username.length === 0) {
-      toast.warning("Enter User Name or Email");
-    } else if (userInfo.password.length === 0) {
-      toast.warning("Enter Password");
-    } else if (event.target.getAttribute("name") === "Sign Up") {
+    if (event.target.getAttribute("name") === "Sign Up") {
       if (action === "Sign Up") {
-        axios
-          .post("http://127.0.0.1:9999/signup", userInfo)
-          .then((reply) => {});
+        if (
+          userInfoSignup.firstName.length === 0 ||
+          userInfoSignup.lastName.length === 0 ||
+          userInfoSignup.email.length === 0 ||
+          userInfoSignup.email.length === 0 ||
+          userInfoSignup.password.length === 0 ||
+          userInfoSignup.confirmPassword.length === 0
+        ) {
+          toast.warning("All Fields Are Mandatory");
+        } else if (!lengthcheck.test(userInfoSignup.username)) {
+          toast.warning("Username Should be greater than 8 and less than 20");
+        } else if (!emailPattern.test(userInfoSignup.email)) {
+          toast.warning("Enter Valid Email");
+        } else if (!lengthcheck.test(userInfoSignup.password)) {
+          toast.warning("Password Should be greater than 8 and less than 20");
+        } else if (userInfoSignup.password !== userInfoSignup.confirmPassword) {
+          toast.warning("Password Mismatch");
+        } else {
+          axios
+            .post("http://127.0.0.1:9999/loginSignup/new", userInfoSignup)
+            .then((reply) => {
+              toast.success("User Created Successfully");
+            })
+            .catch((err) => {
+              var x = JSON.parse(err.response.request.response);
+              toast.error(x.error+" "+x.sqlMessage.substring(0,16));
+              console.log(err);
+            });
+        }
       } else {
         setAction("Sign Up");
       }
     } else if (event.target.getAttribute("name") === "Login") {
       if (action === "Login") {
-        axios.post("http://127.0.0.1:9999/login", userInfo).then((reply) => {
-          console.log(reply.data);
-          switch (reply.data.message) {
-            case "success":
-              setErrorMsg("User Logged In");
-              toast.success("Successfully Logged In");
-              window.sessionStorage.setItem("token", reply.data.logintoken);
-              if (userInfo.LoginType === "patients") navigate("/patient");
-              if (userInfo.LoginType === "doctors") navigate("/doctor");
-              if (userInfo.LoginType === "management") {
-                if (userInfo.managementType === "Admin") navigate("/admin");
-                else if (userInfo.managementType === "Accountant")
-                  navigate("/accountant");
-                else if (userInfo.managementType === "Receptionist")
-                  navigate("/receptionist");
+        if (userInfo.LoginType.length === 0) {
+          toast.warning("Select Type Of User");
+        } else if (userInfo.username.length === 0) {
+          toast.warning("Enter User Name or Email");
+        } else if (userInfo.password.length === 0) {
+          toast.warning("Enter Password");
+        } else {
+          axios
+            // .post("http://127.0.0.1:9999/loginSignup", userInfo)
+            .post("http://127.0.0.1:9999/login", userInfo)
+            .then((reply) => {
+              console.log(reply.data);
+              switch (reply.data.message) {
+                case "success":
+                  setErrorMsg("User Logged In");
+                  toast.success("Successfully Logged In");
+                  window.sessionStorage.setItem("token", reply.data.logintoken);
+                  if (userInfo.LoginType === "patients") navigate("/patient");
+                  if (userInfo.LoginType === "doctors") navigate("/doctor");
+                  if (userInfo.LoginType === "management") {
+                    if (userInfo.managementType === "Admin") navigate("/admin");
+                    else if (userInfo.managementType === "Accountant")
+                      navigate("/accountant");
+                    else if (userInfo.managementType === "Receptionist")
+                      navigate("/receptionist");
+                  }
+                  break;
+
+                case "Incorrect Password":
+                  toast.error("Incorrect Password");
+                  break;
+
+                case "User Does not exist":
+                  toast.error("User Does Not exist");
+                  break;
+
+                default:
+                  break;
               }
-              break;
-
-            case "Incorrect Password":
-              setErrorMsg("Incorrect Password");
-              toast.error("Incorrect Password");
-              break;
-
-            case "User Does not exist":
-              setErrorMsg("User Does Not exist");
-              toast.error("User Does Not exist");
-              break;
-
-            default:
-              break;
-          }
-        });
+            });
+        }
       } else {
         setAction("Login");
       }
@@ -84,9 +127,12 @@ function LoginSignup() {
   return (
     <div
       id="loginbody1"
-      style={{ backgroundImage: "url(http://localhost:3000//images/back.jpg)"}}
+      style={{
+        backgroundImage:
+          "url(https://images.pexels.com/photos/1631677/pexels-photo-1631677.jpeg)",
+      }}
     >
-      <div className="container" id="logincontainer">
+      <div className="container">
         <div className="header" id="loginheader">
           <div className="text" id="logintext">
             {action}
@@ -142,7 +188,9 @@ function LoginSignup() {
                 value={userInfo.managementType}
                 onChange={inputChange}
               >
-                 <option selected>Select Management Type</option>
+                <option value="" disabled defaultValue>
+                  Select Management Type
+                </option>
                 <option value="Admin">Admin</option>
                 <option value="Accountant">Accountant</option>
                 <option value="Receptionist">Reception</option>
@@ -156,38 +204,98 @@ function LoginSignup() {
           {action === "Login" ? (
             <div></div>
           ) : (
-            <div className="input" id="inputlogin">
-              <img src={user_icon} alt="" />
-              <input
-                type="text"
-                placeholder="Name"
-                name="name"
-                value={userInfo.name}
-                onChange={inputChange}
-              />
-            </div>
+            <>
+              <div className="input" id="inputlogin">
+                <img src={user_icon} alt="" />
+                <input
+                  type="text"
+                  placeholder="Enter FirstName"
+                  name="firstName"
+                  id="firstName"
+                  value={userInfoSignup.firstName}
+                  onChange={inputChangeSignup}
+                />
+              </div>
+              <div className="input" id="inputlogin">
+                <img src={user_icon} alt="" />
+                <input
+                  type="text"
+                  placeholder="Enter FirstName"
+                  name="lastName"
+                  id="lastName"
+                  value={userInfoSignup.lastName}
+                  onChange={inputChangeSignup}
+                />
+              </div>
+              <div className="input" id="inputlogin">
+                <img src={user_icon} alt="" />
+                <input
+                  type="text"
+                  placeholder="Enter Username"
+                  name="username"
+                  id="username"
+                  value={userInfoSignup.username}
+                  onChange={inputChangeSignup}
+                />
+              </div>
+              <div className="input" id="inputlogin">
+                <img src={email_icon} alt="" />
+                <input
+                  type="email"
+                  placeholder="Enter Email"
+                  name="email"
+                  value={userInfoSignup.email}
+                  onChange={inputChangeSignup}
+                />
+              </div>
+              <div className="input" id="inputlogin">
+                <img src={password_icon} alt="" />
+                <input
+                  type="password"
+                  placeholder="Password"
+                  name="password"
+                  value={userInfoSignup.password}
+                  onChange={inputChangeSignup}
+                />
+              </div>
+              <div className="input" id="inputlogin">
+                <img src={password_icon} alt="" />
+                <input
+                  type="password"
+                  placeholder="Re-Enter Password"
+                  name="confirmPassword"
+                  value={userInfoSignup.confirmPassword}
+                  onChange={inputChangeSignup}
+                />
+              </div>
+            </>
           )}
-
-          <div className="input" id="inputlogin">
-            <img src={email_icon} alt="" />
-            <input
-              type="email"
-              placeholder="Email Id"
-              name="username"
-              value={userInfo.username}
-              onChange={inputChange}
-            />
-          </div>
-          <div className="input" id="inputlogin">
-            <img src={password_icon} alt="" />
-            <input
-              type="password"
-              placeholder="Password"
-              name="password"
-              value={userInfo.password}
-              onChange={inputChange}
-            />
-          </div>
+          {action === "Sign Up" ? (
+            <div></div>
+          ) : (
+            <>
+              <div className="input" id="inputlogin">
+                <img src={email_icon} alt="" />
+                <input
+                  type="email"
+                  placeholder="Enter Email/Username"
+                  name="username"
+                  value={userInfo.username}
+                  onChange={inputChange}
+                />
+              </div>
+              <div className="input" id="inputlogin">
+                <img src={password_icon} alt="" />
+                <input
+                  type="password"
+                  placeholder="Password"
+                  name="password"
+                  value={userInfo.password}
+                  onChange={inputChange}
+                />
+              </div>
+            </>
+          )}
         </div>
         {action === "Sign Up" ? (
           <div></div>

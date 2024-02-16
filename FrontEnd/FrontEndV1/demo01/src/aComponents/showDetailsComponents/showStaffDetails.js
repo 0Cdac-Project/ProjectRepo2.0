@@ -126,7 +126,7 @@ function ShowStaffDetails() {
                     <td>{res.managementLastName}</td>
                     <td>{res.managementUsername}</td>
                     <td>{res.managementDob}</td>
-                    <td>{res.managementAge}</td>
+                    <td>{-res.managementAge}</td>
                     <td>{res.managementGender}</td>
                     <td>{res.managementMobile}</td>
                     <td>{res.managementEmail}</td>

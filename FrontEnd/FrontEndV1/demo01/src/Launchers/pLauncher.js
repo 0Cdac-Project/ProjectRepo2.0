@@ -20,7 +20,7 @@ function PLauncher() {
         <div className="side-content">
             <div className="profile">
                 <div className="profile-img bg-img" style={{backgroundImage: 'url(http://localhost:3000//Sai.jpg)'}}></div>
-                <h5 style={{color: "whitesmoke"}}>Sainath Ibitwar</h5>
+                <h5 style={{color: "whitesmoke"}}>Olivia Larry</h5>
             </div>
 
             <div className="side-menu">

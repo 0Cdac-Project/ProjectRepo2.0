@@ -25,7 +25,7 @@ function DoctorStaffDetails() {
               <button className="button-30">Doctor</button>
             </NavLink>
             <NavLink to="showStaff">
-              <button className="button-30">Staff</button>
+              <button className="button-30">Management</button>
             </NavLink>
           </div>
           <div className="col-2">

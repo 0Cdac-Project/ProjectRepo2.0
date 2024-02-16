@@ -39,7 +39,7 @@ function ALauncher() {
                 width="72"
               />
             </div>
-            <h5 style={{ color: "whitesmoke" }}>Sainath Ibitwar</h5>
+            <h5 style={{ color: "whitesmoke" }}>Adela Wimberly</h5>
           </div>
 
           <div className="side-menu">

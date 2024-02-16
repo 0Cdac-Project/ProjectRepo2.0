@@ -1,4 +1,70 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { selectUser } from "../Redux/Reducer/userslice";
+
 function Bills() {
+    const user = useSelector(selectUser);
+    const [bills, setBills] = useState([])
+    const [appointmentHistory, setAppointmentHistory] = useState([]);
+    // const [searchText, setSearchText] = useState('');
+    const urlBills = "http://localhost:8080/api/v1/bills";
+    const urlHistory = "http://localhost:8080/api/v1/appointments";
+
+    useEffect(() => {
+        if (user && user.patientID) {
+            axios.get(urlHistory + `/by_patient/${user.patientID}`)
+                .then((result) => {
+                    // console.log(result);
+                    // console.log(result.data.length)
+                    setAppointmentHistory(result.data);
+                    for(var i=0; i<result.data.length; i++) {
+                        // console.log(result.data[i].appointmentID);
+                        getBillData(result.data[i].appointmentID);
+                    }
+                })
+                .catch((error) => {
+                    console.error("Error fetching data:", error);
+                });
+        }
+    }, [user]);
+
+    const getBillData = (appointmentID) => {
+        // console.log(appointmentID);
+        axios.get(urlBills + `/appointment_id/${appointmentID}`)
+            .then((result) => {
+                console.log(result);
+                setBills(result.data);
+            })
+            .catch((error) => {
+                console.error("Error fetching data:", error);
+            });
+    }
+
+
+
+    // const getBills = () =>{
+    //     axios.get(url + `/patient_id/${user.patientID}`).then((response) => {
+    //         setBills(response.data);
+    //         console.log(bills);
+    //     });
+    // }
+
+    const totalBill = (a, b) => {
+        return a+b;
+    }
+
+    const getBedFees = (charge, category) => {
+        if(category==="In"){
+            return charge;
+        }
+        return 0;
+    }
+
+    // const onSearch = (args) => {
+    //     setSearchText(args.target.value);
+    // }
+
     return ( 
         <>
             <div className="page-header">
@@ -12,15 +78,15 @@ function Bills() {
                     <tbody>
                         <tr>
                             <td rowSpan={3}>
-                                <div>
+                                {/* <div>
                                     <img src={process.env.PUBLIC_URL + 'Image.jpg'} style={{"width": "95px", "marginLeft": "15px"}}/>
-                                </div>
+                                </div> */}
                             </td>
-                            <td>Patient: Sainath Ibitwar</td>
+                            <td>Patient: {user.patientFirstName}</td>
                             <td>Bill id: DAC2023</td>
                         </tr>
                         <tr>
-                            <td>Patient id: 80478</td>
+                            <td>Patient id: {user.patientID}</td>
                             <td>Bill date: 01-01-2024</td>
                         </tr>
                         <tr>
@@ -30,7 +96,7 @@ function Bills() {
                     </tbody>
                 </table>
                 <div className="bg-secondary-subtle rounded" style={{"paddingBlock": "5px"}}>
-                    <p style={{"paddingLeft": "10px"}}>Dear Sainath:</p>
+                    <p style={{"paddingLeft": "10px"}}>Dear {user.patientFirstName}:</p>
                     <p style={{"paddingLeft": "10px"}}>Thank you for selecting Amoeba hospital for your health care services. For your records, below is a summary of charges for this account.</p>
                 </div>
                 <br/>
@@ -39,7 +105,7 @@ function Bills() {
             <table className="table table-bordered">
                     <thead className="table-secondary">
                         <tr className="text-center">
-                            <th style={{"width": "12%"}}>Services</th>
+                        <th style={{"width": "12%"}}>Services</th>
                             <th style={{"width": "40%"}}>Account Summary</th>
                             <th style={{"width": "12%"}}>Total Charges</th>
                             <th style={{"width": "12%"}}>Total Adjustment</th>
@@ -51,7 +117,7 @@ function Bills() {
                         <tr>
                             <td>Physician</td>
                             <td>
-                                <p className="fst-italic">Mayur K., MD</p>
+                                <p className="fst-italic">John K., MD</p>
                                 <p>Anesthesia, Open Heart Surgery</p>
                             </td>
                             <td className="text-end align-middle">500000</td>

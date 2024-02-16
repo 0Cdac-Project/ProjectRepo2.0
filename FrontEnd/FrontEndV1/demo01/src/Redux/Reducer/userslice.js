@@ -22,7 +22,6 @@ export const userSlice = createSlice({
     setUser: (state, action) => {
       state.user = action.payload;
       sessionStorage.setItem("user", encryptData(action.payload));
-      console.log("hii");
     },
     clearUser: (state) => {
       state.user = null;

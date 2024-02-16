@@ -24,12 +24,7 @@ function Profile() {
     extraCol1: "",
     managementImage: null,
   });
-  var setManagementToLocal = () => {
-    setManagement(...user);
-    console.log(manage);
-  };
-  // setManagementToLocal();
-  console.log(manage.managementFirstName);
+  
   return (
     <>
       <div className="page-header">
