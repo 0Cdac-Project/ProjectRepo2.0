@@ -1,0 +1,32 @@
+.bill-search{
+  display: flex;
+}
+
+#search-box{
+  position: absolute;
+  right: 15px;
+  width: 13vw;
+}
+
+.text-div{
+  /* position:relative;
+  right: 2px; */
+  display: flex;
+  align-items: center;
+  justify-content:flex-end;
+}
+
+.options{
+  display: flex;
+  flex-direction: column;
+}
+
+.opt1{
+  position: relative;
+  left: 80%;
+}
+
+.opt2{
+  position: relative;
+  left: 80%;
+}
