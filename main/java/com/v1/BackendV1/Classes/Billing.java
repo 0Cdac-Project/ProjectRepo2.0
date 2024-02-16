@@ -16,11 +16,11 @@ public class Billing {
     @Column(name = "bill_datetime")
     private LocalDateTime billDateTime;
 
-    @Column(name = "accountant_id")
-    private Integer accountantId;
-    @OneToOne
-    @JoinColumn(name = "accountant_id", referencedColumnName = "accountant_id", insertable = false, updatable = false)
-    private Accountant accountant;
+    @Column(name = "management_id")
+    private Integer managementId;
+    @ManyToOne
+    @JoinColumn(name = "management_id", referencedColumnName = "management_id", insertable = false, updatable = false)
+    private Management management;
 
     @Column(name = "appointment_id")
     private Integer appointmentId;
@@ -34,21 +34,21 @@ public class Billing {
     @JoinColumn(name = "bed_id", referencedColumnName = "bed_id", insertable = false, updatable = false)
     private Bed bed;
 
-    public Billing(Integer billID, LocalDateTime billDateTime, Integer accountantId, Accountant accountant, Integer appointmentId, Appointments appointment, Integer bedID, Bed bed) {
+    public Billing(Integer billID, LocalDateTime billDateTime, Integer managementId, Management management, Integer appointmentId, Appointments appointment, Integer bedID, Bed bed) {
         this.billID = billID;
         this.billDateTime = billDateTime;
-        this.accountantId = accountantId;
-        this.accountant = accountant;
+        this.managementId = managementId;
+        this.management = management;
         this.appointmentId = appointmentId;
         this.appointment = appointment;
         this.bedID = bedID;
         this.bed = bed;
     }
 
-    public Billing(LocalDateTime billDateTime, Integer accountantId, Accountant accountant, Integer appointmentId, Appointments appointment, Integer bedID, Bed bed) {
+    public Billing(LocalDateTime billDateTime, Integer managementId, Management management, Integer appointmentId, Appointments appointment, Integer bedID, Bed bed) {
         this.billDateTime = billDateTime;
-        this.accountantId = accountantId;
-        this.accountant = accountant;
+        this.managementId = managementId;
+        this.management = management;
         this.appointmentId = appointmentId;
         this.appointment = appointment;
         this.bedID = bedID;
@@ -74,20 +74,20 @@ public class Billing {
         this.billDateTime = LocalDateTime.now();
     }
 
-    public Integer getAccountantId() {
-        return accountantId;
+    public Integer getmanagementId() {
+        return managementId;
     }
 
-    public void setAccountantId(Integer accountantId) {
-        this.accountantId = accountantId;
+    public void setmanagementId(Integer managementId) {
+        this.managementId = managementId;
     }
 
-    public Accountant getAccountant() {
-        return accountant;
+    public Management getManagement() {
+        return management;
     }
 
-    public void setAccountant(Accountant accountant) {
-        this.accountant = accountant;
+    public void setManagement(Management management) {
+        this.management = management;
     }
 
     public Integer getAppointmentId() {
@@ -127,8 +127,8 @@ public class Billing {
         return "Billing{" +
                 "billID=" + billID +
                 ", billDateTime=" + billDateTime +
-                ", accountantId=" + accountantId +
-                ", accountant=" + accountant +
+                ", managementId=" + managementId +
+                ", management=" + management +
                 ", appointmentId=" + appointmentId +
                 ", appointment=" + appointment +
                 ", bedID=" + bedID +

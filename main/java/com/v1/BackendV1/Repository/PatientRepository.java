@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @Repository
 public interface PatientRepository extends JpaRepository<Patient,Integer> {
-    @Query("SELECT p FROM Patient p WHERE p.patientID = :id")
-    Optional<Patient> findById(@Param("id") Integer id);
+    Optional<Patient> findById(Integer id);
+    Optional<Patient> findByPatientUsernameAndPatientPassword(String patientUsername,String patientPassword);
+    Optional<Patient> findByPatientUsernameOrPatientEmail(String patientUsername,String patientEmail);
 }

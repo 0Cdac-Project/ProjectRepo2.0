@@ -28,7 +28,7 @@ public class ContactUs {
     @Column(name = "message", nullable = false, columnDefinition = "TEXT")
     private String message;
 
-    @Column(name = "submission_time", nullable = false)
+    @Column(name = "submission_time")
     private LocalDateTime submissionTime;
 
     public ContactUs(Integer contactId, String firstName, String lastName, String email, String phone, String message, LocalDateTime submissionTime) {
@@ -106,9 +106,13 @@ public class ContactUs {
     }
 
     public void setSubmissionTime(LocalDateTime submissionTime) {
-        this.submissionTime = submissionTime;
+        this.submissionTime = LocalDateTime.now();
     }
 
+    @PrePersist
+    protected void onCreate() {
+        submissionTime =  LocalDateTime.now();
+    }
     @Override
     public String toString() {
         return "ContactUs{" +

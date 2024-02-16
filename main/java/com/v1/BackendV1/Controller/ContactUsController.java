@@ -1,8 +1,6 @@
 package com.v1.BackendV1.Controller;
 
-import com.v1.BackendV1.Classes.Accountant;
 import com.v1.BackendV1.Classes.ContactUs;
-import com.v1.BackendV1.Service.AccountantService;
 import com.v1.BackendV1.Service.ContactUsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,13 +17,19 @@ public class ContactUsController {
         this.contactUsService = contactUsService;
     }
 
-    @GetMapping
+    @GetMapping("/findAll")
     public List<ContactUs> getContacts() {
         return contactUsService.getContacts();
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public void addNewContact(@RequestBody ContactUs contactUs) {
         contactUsService.addNewContact(contactUs);
     }
+
+    @GetMapping("/{id}")
+    public ContactUs getContactByID(@PathVariable Integer id) {
+        return contactUsService.getContactByID(id);
+    }
+
 }

@@ -85,6 +85,9 @@ public class Patient {
     @Column(name = "extra_col_1", length = 250)
     private String extraCol1;
 
+    @Lob
+    @Column(length = Integer.MAX_VALUE)
+    private byte[] patientImage;
     public Patient(Integer patientID, String patientFirstName, String patientLastName, LocalDate patientDob, String patientGender, String patientMobile, String patientEmergencyContact, String patientEmail, String patientNationality, String patientAddress, String patientGovtID, String patientPassport, String patientMaritalStatus, String patientOccupation, String patientMedicalCondition, String patientMedicationHistory, String patientMedicalConsultant, String patientUsername, String patientPassword, Double patientWeight, Double patientHeight, String patientBloodgroup, String patientCategory, String extraCol1) {
         this.patientID = patientID;
         this.patientFirstName = patientFirstName;
@@ -138,6 +141,14 @@ public class Patient {
         this.extraCol1 = extraCol1;
     }
 
+    public byte[] getPatientImage() {
+        return patientImage;
+    }
+
+    public void setPatientImage(byte[] patientImage) {
+        this.patientImage = patientImage;
+    }
+
     public Patient() {
     }
 
@@ -178,7 +189,7 @@ public class Patient {
     }
 
     public void setPatientAge(Integer patientAge) {
-        this.patientAge = patientAge;
+        this.patientAge = Period.between(patientDob, LocalDate.now()).getYears();
     }
 
     public String getPatientGender() {

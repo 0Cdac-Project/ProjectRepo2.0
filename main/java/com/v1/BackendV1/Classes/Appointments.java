@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "appointments")
 public class Appointments {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "appointment_id", nullable = false)
@@ -16,20 +15,20 @@ public class Appointments {
     @Column(name = "appointment_date_time", nullable = false)
     private LocalDateTime appointmentDateTime;
 
-    @Column(name = "medical_condition", columnDefinition = "TEXT",nullable = false)
+    @Column(name = "medical_condition", columnDefinition = "TEXT", nullable = false)
     private String medicalCondition;
 
-    @Column(name = "medication", columnDefinition = "TEXT",nullable = false)
+    @Column(name = "medication", columnDefinition = "TEXT", nullable = false)
     private String medication;
     @Column(name = "patient_id")
     private Integer patientID;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "patient_id", referencedColumnName = "patient_id", insertable = false, updatable = false)
     private Patient patient;
 
     @Column(name = "doctor_id")
     private Integer doctorID;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "doctor_id", referencedColumnName = "doctor_id", insertable = false, updatable = false)
     private Doctor doctor;
 
