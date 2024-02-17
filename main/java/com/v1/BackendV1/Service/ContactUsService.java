@@ -1,9 +1,8 @@
 package com.v1.BackendV1.Service;
 
-import com.v1.BackendV1.Classes.Accountant;
 import com.v1.BackendV1.Classes.ContactUs;
-import com.v1.BackendV1.Repository.AccountantRepository;
 import com.v1.BackendV1.Repository.ContactUsRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class ContactUsService {
     private final ContactUsRepository contactUsRepository;
 
@@ -24,10 +24,15 @@ public class ContactUsService {
     }
 
     public void addNewContact(ContactUs contactUs) {
+        if(contactUs.getContactId()!=null){
         Optional<ContactUs> optionalPatient = contactUsRepository.findById(contactUs.getContactId());
         if (optionalPatient.isPresent()) {
             throw new IllegalStateException("Duplicate Entry");
-        }
+        }}
         contactUsRepository.save(contactUs);
+    }
+
+    public ContactUs getContactByID(Integer id) {
+        return contactUsRepository.findById(id).orElseThrow();
     }
 }

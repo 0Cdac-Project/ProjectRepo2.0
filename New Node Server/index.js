@@ -6,7 +6,6 @@ const mysql = require('mysql2');
 
 const loginApp = require('./routes/login');
 const pDashApp = require('./routes/pDashApp');
-const signUpApp = require('./routes/signUp')
 
 const PORT = config.get("PORT");
 const key  = config.get("jwtkey");
@@ -127,8 +126,7 @@ app.use(express.json());
 //     }
 // })
 
-app.use("/login", loginApp);
-app.use("/loginSignup/new", signUpApp)
+app.use("/loginSignup", loginApp);
 app.use("/patientDashBoard", pDashApp);
 
 app.listen(PORT, ()=>{console.log(`server started listening at ${PORT}`)})

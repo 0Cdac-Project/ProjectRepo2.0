@@ -1,9 +1,8 @@
 package com.v1.BackendV1.Service;
 
-import com.v1.BackendV1.Classes.Accountant;
 import com.v1.BackendV1.Classes.Billing;
-import com.v1.BackendV1.Repository.AccountantRepository;
 import com.v1.BackendV1.Repository.BillingRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class BillingService {
     private final BillingRepository billingRepository;
 
@@ -29,5 +29,13 @@ public class BillingService {
             throw new IllegalStateException("Duplicate Entry");
         }
         billingRepository.save(billing);
+    }
+
+    public Billing getBillById(Integer id) {
+        return billingRepository.findById(id).orElseThrow();
+    }
+
+    public List<Billing> getBillsByManagementId(Integer managementId) {
+        return billingRepository.findByManagementIdOrderByAppointmentAppointmentDateTimeDesc(managementId);
     }
 }

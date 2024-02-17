@@ -1,8 +1,6 @@
 package com.v1.BackendV1.Controller;
 
-import com.v1.BackendV1.Classes.Accountant;
 import com.v1.BackendV1.Classes.Feedback;
-import com.v1.BackendV1.Service.AccountantService;
 import com.v1.BackendV1.Service.FeedbackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,13 +17,19 @@ public class FeedbackController {
         this.feedbackService = feedbackService;
     }
 
-    @GetMapping
+    @GetMapping("/findAll")
     public List<Feedback> getFeedbacks() {
         return feedbackService.getFeedbacks();
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public void addNewAccountant(@RequestBody Feedback feedback) {
         feedbackService.addFeedbacks(feedback);
     }
+
+    @GetMapping("/{id}")
+    public Feedback getFeedbackById(@PathVariable Integer id) {
+        return feedbackService.getFeedbackById(id);
+    }
+
 }

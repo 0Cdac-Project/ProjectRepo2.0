@@ -1,10 +1,13 @@
 package com.v1.BackendV1.Controller;
 
 import com.v1.BackendV1.Classes.Doctor;
+import com.v1.BackendV1.Classes.Management;
+import com.v1.BackendV1.Classes.Patient;
 import com.v1.BackendV1.Service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.print.Doc;
 import java.util.List;
 
 @RestController
@@ -17,13 +20,32 @@ public class DoctorController {
         this.doctorService = doctorService;
     }
 
-    @GetMapping
+    @GetMapping("/findAll")
     public List<Doctor> getDoctor() {
         return doctorService.getDoctors();
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public void addNewDoctor(@RequestBody Doctor doctor) {
         doctorService.addDoctor(doctor);
     }
+
+    @GetMapping("/{id}")
+    public Doctor getDoctorById(@PathVariable Integer id) {
+        return doctorService.getDoctorById(id);
+    }
+
+    @PostMapping("/verify")
+    public Doctor getDoctorByEmailAndPassword(@RequestBody Doctor doctor) {
+        return doctorService.getDoctorByEmailAndPassword(doctor.getDoctorEmail(),doctor.getDoctorPassword());
+    }
+    @GetMapping("/findUser/{username}")
+    public Doctor getDoctorByUsernameOrEmail(@PathVariable String username) {
+        return doctorService.getDoctorByUsernameOrEmail(username);
+    }
+    @GetMapping("/getAllAvailable")
+    public List<Doctor> getAllAvailable(String availibility){
+        return doctorService.getAvailableDoctors("Yes");
+    }
+
 }

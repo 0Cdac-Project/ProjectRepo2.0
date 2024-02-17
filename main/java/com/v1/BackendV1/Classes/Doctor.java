@@ -28,7 +28,7 @@ public class Doctor {
     @Column(name = "doctor_gender", length = 10)
     private String doctorGender;
 
-    @Column(name = "doctor_mobile", length = 15, nullable = false)
+    @Column(name = "doctor_mobile", length = 15)
     private String doctorMobile;
 
     @Column(name = "doctor_emergency_contact", length = 15)
@@ -79,8 +79,9 @@ public class Doctor {
     @Column(name = "doctor_fees")
     private Integer doctorFees;
 
-    @Column(name = "doctor_photograph", length = 250)
-    private String doctorPhotograph;
+    @Lob
+    @Column(length = Integer.MAX_VALUE)
+    private byte[] doctorImage;
 
     @Column(name = "doctor_username", length = 50, nullable = false, unique = true)
     private String doctorUsername;
@@ -124,7 +125,6 @@ public class Doctor {
         this.doctorShifts = doctorShifts;
         this.doctorSalary = doctorSalary;
         this.doctorFees = doctorFees;
-        this.doctorPhotograph = doctorPhotograph;
         this.doctorUsername = doctorUsername;
         this.doctorPassword = doctorPassword;
         this.doctorHireDate = doctorHireDate;
@@ -160,7 +160,6 @@ public class Doctor {
         this.doctorShifts = doctorShifts;
         this.doctorSalary = doctorSalary;
         this.doctorFees = doctorFees;
-        this.doctorPhotograph = doctorPhotograph;
         this.doctorUsername = doctorUsername;
         this.doctorPassword = doctorPassword;
         this.doctorHireDate = doctorHireDate;
@@ -168,14 +167,6 @@ public class Doctor {
     }
 
     public Doctor() {
-    }
-
-    public Integer getdoctorID() {
-        return doctorID;
-    }
-
-    public void setdoctorID(Integer doctorID) {
-        this.doctorID = doctorID;
     }
 
     public String getDoctorFirstName() {
@@ -354,12 +345,20 @@ public class Doctor {
         this.doctorFees = doctorFees;
     }
 
-    public String getDoctorPhotograph() {
-        return doctorPhotograph;
+    public Integer getDoctorID() {
+        return doctorID;
     }
 
-    public void setDoctorPhotograph(String doctorPhotograph) {
-        this.doctorPhotograph = doctorPhotograph;
+    public void setDoctorID(Integer doctorID) {
+        this.doctorID = doctorID;
+    }
+
+    public byte[] getDoctorImage() {
+        return doctorImage;
+    }
+
+    public void setDoctorImage(byte[] doctorImage) {
+        this.doctorImage = doctorImage;
     }
 
     public String getDoctorUsername() {
@@ -420,7 +419,6 @@ public class Doctor {
                 ", doctorShifts=" + doctorShifts +
                 ", doctorSalary=" + doctorSalary +
                 ", doctorFees=" + doctorFees +
-                ", doctorPhotograph='" + doctorPhotograph + '\'' +
                 ", doctorUsername='" + doctorUsername + '\'' +
                 ", doctorPassword='" + doctorPassword + '\'' +
                 ", doctorHiredate=" + doctorHireDate +

@@ -6,10 +6,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface DoctorRepository extends JpaRepository<Doctor, Integer> {
-    @Query("SELECT p FROM Doctor p WHERE p.doctorID = :id")
-    Optional<Doctor> findById(@Param("id") Integer id);
+    Optional<Doctor> findById(Integer id);
+    Optional<Doctor> findByDoctorUsernameAndDoctorPassword(String doctorUsername,String doctorPassword);
+    Optional<Doctor> findByDoctorUsernameOrDoctorEmail(String docterUsername,String email);
+    List<Doctor> findByDoctorAvailability(String Availibility);
 }
