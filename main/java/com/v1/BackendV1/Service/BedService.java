@@ -24,14 +24,14 @@ public class BedService {
     }
 
     public void addNewBed(Bed bed) {
-        Optional<Bed> optionalPatient = bedRepository.findById(bed.getBedID());
-        if (optionalPatient.isPresent()) {
-            throw new IllegalStateException("Duplicate Entry");
-        }
         bedRepository.save(bed);
     }
 
     public Bed getBedById(Integer id) {
         return bedRepository.findById(id).orElseThrow();
+    }
+
+    public List<Bed> getByAvailibility(String wardCategory){
+        return bedRepository.findByAvailibility(wardCategory);
     }
 }

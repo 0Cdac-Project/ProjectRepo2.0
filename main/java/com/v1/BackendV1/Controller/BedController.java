@@ -32,4 +32,9 @@ public class BedController {
         return bedService.getBedById(id);
     }
 
+    @GetMapping("/available/{wardCategory}")
+    public List<Bed> getByAvailability(@PathVariable String wardCategory){
+        return bedService.getByAvailibility(wardCategory.replace("%20", " "));
+    }
+
 }

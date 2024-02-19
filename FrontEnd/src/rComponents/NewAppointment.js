@@ -199,6 +199,7 @@ function NewAppointment() {
             <div className="page-header">
                 <h1>Appointments Add New</h1>
             </div>
+            <div className="container">
              <div className="table-responsive">
                 <table className="table table-bordered">
                     <tr>
@@ -225,6 +226,7 @@ function NewAppointment() {
                       <td colSpan={2}><button onClick={bookAppo}> Book Appointment </button></td>
                     </tr>
                 </table>                
+            </div>
             </div>
           </div>
          }

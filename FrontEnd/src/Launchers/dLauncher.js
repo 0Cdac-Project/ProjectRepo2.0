@@ -1,7 +1,10 @@
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { selectUser } from "../Redux/Reducer/userslice";
+import { useSelector } from "react-redux";
 function DLauncher() {
     const navigate = useNavigate();
+    const user = useSelector(selectUser);
     var logout = ()=>
     {
       window.sessionStorage.removeItem("token");
@@ -18,10 +21,26 @@ function DLauncher() {
         </div>
         
         <div className="side-content">
-            <div className="profile">
-                <div className="profile-img bg-img" style={{backgroundImage: 'url(http://localhost:3000//Sai.jpg)'}}></div>
-                <h5 style={{color: "whitesmoke"}}>Sainath Ibitwar</h5>
+        <div className="profile">
+            <div
+              className="profile-img bg-img"
+              style={{
+                width: "72px",
+                height: "72px",
+                borderRadius: "50%",
+                overflow: "hidden",
+              }}
+            >
+              <img
+                src={`data:image/jpeg;base64, ${user.doctorImage}`}
+                alt="Admin"
+                className="rounded-circle"
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              />
             </div>
+            <h5 style={{ color: "whitesmoke" }}>{user.doctorFirstName + " " + user.doctorLastName}</h5>
+          </div>
+
 
             <div className="side-menu">
                 <ul className="ps-0">
@@ -72,13 +91,25 @@ function DLauncher() {
                 <div className="header-menu">
               <div className="user">
                 <NavLink to="profile">
-                  <div
+                <div
                     className="bg-img"
                     style={{
-                      backgroundImage:
-                        "url(http://localhost:3000/Sai.jpg)",
+                      marginRight: "20px",
+                      width: "50px",
+                      height: "50px",
                     }}
-                  ></div>
+                  >
+                    <img
+                      src={`data:image/jpeg;base64, ${user.doctorImage}`}
+                      alt="Admin"
+                      className="rounded-circle"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        borderRadius: "50%",
+                      }}
+                    />
+                  </div>
                 </NavLink>
 
                 <span

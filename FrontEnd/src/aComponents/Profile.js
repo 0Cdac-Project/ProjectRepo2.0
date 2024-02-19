@@ -1,30 +1,82 @@
 import { useSelector } from "react-redux";
 import { selectUser } from "../Redux/Reducer/userslice";
 import { useState } from "react";
+import { EditDetails } from "./ProfileComponents/EditDetails";
+import { EditPassword } from "./ProfileComponents/EditPassword";
+import axios from "axios";
+import { toast } from "react-toastify";
 function Profile() {
   const user = useSelector(selectUser);
-  const [manage, setManagement] = useState({
-    managementID: 0,
-    managementUsername: "",
-    managementPassword: "",
-    managementCategory: "",
-    managementFirstName: "",
-    managementLastName: "",
-    managementDob: "",
-    managementAge: 0,
-    managementGender: "",
-    managementMobile: "",
-    managementEmail: "",
-    managementAddress: "",
-    managementGovtID: "",
-    managementPassport: "",
-    managementSalary: 0,
-    managementQualification: "",
-    managementHiredate: "",
-    extraCol1: "",
-    managementImage: null,
+  const [action, setAction] = useState("true");
+  const [readOnly, setReadOnly] = useState(true);
+  const [currUser, setCurrUser] = useState({
+    managementID: user.managementID,
+    managementUsername: user.managementUsername,
+    managementPassword: user.managementPassword,
+    managementCategory: user.managementCategory,
+    managementFirstName: user.managementFirstName,
+    managementLastName: user.managementLastName,
+    managementDob: user.managementDob,
+    managementAge: user.managementAge,
+    managementGender: user.managementGender,
+    managementMobile: user.managementMobile,
+    managementEmail: user.managementEmail,
+    managementAddress: user.managementAddress,
+    managementGovtID: user.managementGovtID,
+    managementPassport: user.managementPassport,
+    managementSalary: user.managementSalary,
+    managementQualification: user.managementQualification,
+    managementHiredate: user.managementHiredate,
+    extraCol1: user.extraCol1,
+    managementImage: user.managementImage,
   });
-  
+
+  var editUserDetails = () => {
+    setAction("true");
+    setReadOnly(!readOnly);
+  };
+  var editPassword = () => {
+    setAction("false");
+  };
+  const [image, setImage] = useState(user.managementImage);
+
+  const handleImageChange = (event) => {
+    setImage(event.target.files[0]);
+  };
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+
+    if (!image) {
+      console.error("No image selected");
+      return;
+    }
+
+    console.log("Selected image:", image.size);
+    if (image.size >= 1048576) {
+      toast.warning("Image Size Should Be Less Than 1 Mb");
+    } else {
+      const url = `http://localhost:8080/api/v1/management/${currUser.managementID}/images`;
+
+      const formData = new FormData();
+      formData.append("image", image);
+
+      console.log("Form data:", formData);
+
+      try {
+        const response = await axios.post(url, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        toast.success("Image Updated");
+      } catch (error) {
+        console.error("Error uploading image:", error);
+        toast.error(error.data);
+      }
+    }
+  };
+
   return (
     <>
       <div className="page-header">
@@ -34,27 +86,57 @@ function Profile() {
         <div className="container">
           <div className="main-body">
             <div className="row">
-              <div className="col-lg-4">
+              <div className="col-lg-5">
                 <div className="card">
                   <div className="card-body">
                     <div className="d-flex flex-column align-items-center text-center">
-                      <img
-                        src={`data:image/jpeg;base64, ${user.managementImage}`}
-                        alt="Admin"
-                        className="rounded-circle"
-                        width="120"
-                      />
+                      <div
+                        className="bg-img"
+                        style={{
+                          width: "120px",
+                          height: "120px",
+                          borderRadius: "50%",
+                          overflow: "hidden",
+                        }}
+                      >
+                        <img
+                          src={`data:image/jpeg;base64, ${currUser.managementImage}`}
+                          alt="Admin"
+                          className="rounded-circle"
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "cover",
+                          }}
+                        />
+                      </div>
                       <div className="mt-3">
                         <h4>
-                          {user.managementFirstName} {user.managementLastName}
+                          {currUser.managementFirstName}{" "}
+                          {currUser.managementLastName}
                         </h4>
                         <p className="text-muted font-size-sm">
-                          Username - {user.managementUsername}
+                          Username - {currUser.managementUsername}
                         </p>
                         <p className="text-muted font-size-sm">
-                          Address - {user.managementAddress}
+                          Management Category - {currUser.managementCategory}
                         </p>
-                        <button className="button-30">Edit Profile</button>
+                        <button className="button-30" onClick={editUserDetails}>
+                          Edit Profile
+                        </button>
+                        <button className="button-30" onClick={editPassword}>
+                          Change Password
+                        </button>
+                        <form onSubmit={handleFormSubmit}>
+                          <input
+                            type="file"
+                            onChange={handleImageChange}
+                            className="form-control"
+                          />
+                          <button type="submit" className="button-30">
+                            Update Image
+                          </button>
+                        </form>
                       </div>
                     </div>
                     <hr className="my-4" />
@@ -80,7 +162,7 @@ function Profile() {
                           Email
                         </h6>
                         <span className="text-secondary">
-                          {user.managementEmail}
+                          {currUser.managementEmail}
                         </span>
                       </li>
                       <li className="list-group-item d-flex justify-content-between align-items-center flex-wrap">
@@ -102,16 +184,18 @@ function Profile() {
                           Phone
                         </h6>
                         <span className="text-secondary">
-                          {user.managementMobile}
+                          {currUser.managementMobile}
                         </span>
                       </li>
                     </ul>
                   </div>
                 </div>
               </div>
-              <div className="col-lg-8">
-                
-              </div>
+              {action == "true" ? (
+                <EditDetails readonly={readOnly} />
+              ) : (
+                <EditPassword />
+              )}
             </div>
           </div>
         </div>

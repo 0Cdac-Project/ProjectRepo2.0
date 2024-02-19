@@ -52,7 +52,7 @@ import RecProfile from "./rComponents/Profile";
 import RecBed from "./rComponents/Bed";
 import RecDoctor from "./rComponents/DoctorSchedule";
 import RecNewAppointment from "./rComponents/NewAppointment";
-import RecNewPatient from './rComponents/NewPatient';
+import RecNewPatient from "./rComponents/NewPatient";
 
 import AccLauncher from "./Launchers/acLauncher";
 import AccDashboard from "./acComponents/Dashboard";

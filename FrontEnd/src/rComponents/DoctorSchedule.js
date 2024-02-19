@@ -122,6 +122,9 @@ function DocterSchedule() {
                       .includes(value1.toLowerCase()) &&
                     !res.doctorUsername
                       .toLowerCase()
+                      .includes(value1.toLowerCase())&&
+                    !res.doctorDepartment
+                      .toLowerCase()
                       .includes(value1.toLowerCase())
                   ) {
                     return null;

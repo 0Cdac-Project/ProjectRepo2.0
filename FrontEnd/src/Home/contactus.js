@@ -55,7 +55,7 @@ function Contactus() {
         .then((res) => {
           if (res.status === 200) {
             console.log("Success");
-            toast.success("Successfully registered the user");
+            toast.success("Message Sent");
             Reset();
           } else {
             toast.error(res["error"]);
@@ -67,13 +67,14 @@ function Contactus() {
     }
   };
   return (
-    <div
+    <div className="main-container"
       style={{
         backgroundImage: "url(https://images.pexels.com/photos/1631677/pexels-photo-1631677.jpeg)",
       }}
     >
       <div className="contactBody" style={{
         margin: "200px",
+        
       }}>
         <div className="container" id="contactContainer">
           <h1>Contact Us</h1>

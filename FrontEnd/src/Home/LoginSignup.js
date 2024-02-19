@@ -39,7 +39,10 @@ function LoginSignup() {
     setUserInfoSignup(copyofUser);
   };
   const emailPattern = new RegExp(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/);
-  const lengthcheck = new RegExp(/^.{8,20}$/);
+  const lengthcheck1 = new RegExp(/^.{8,20}$/);
+  const lengthcheck2 = new RegExp(
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/
+  );
   const Submit = (event) => {
     if (event.target.getAttribute("name") === "Sign Up") {
       if (action === "Sign Up") {
@@ -52,12 +55,12 @@ function LoginSignup() {
           userInfoSignup.confirmPassword.length === 0
         ) {
           toast.warning("All Fields Are Mandatory");
-        } else if (!lengthcheck.test(userInfoSignup.username)) {
+        } else if (!lengthcheck1.test(userInfoSignup.username)) {
           toast.warning("Username Should be greater than 8 and less than 20");
         } else if (!emailPattern.test(userInfoSignup.email)) {
           toast.warning("Enter Valid Email");
-        } else if (!lengthcheck.test(userInfoSignup.password)) {
-          toast.warning("Password Should be greater than 8 and less than 20");
+        } else if (!lengthcheck2.test(userInfoSignup.password)) {
+          toast.warning("Minimum eight and maximum 20 characters, at least one uppercase letter, one lowercase letter, one number and one special character");
         } else if (userInfoSignup.password !== userInfoSignup.confirmPassword) {
           toast.warning("Password Mismatch");
         } else {

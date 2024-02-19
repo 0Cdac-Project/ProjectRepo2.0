@@ -34,4 +34,8 @@ public class AppointmentsService {
     public Appointments getAccountantByPatientId(Integer patientId) {
         return appointmentsRepository.findByPatientID(patientId).orElseThrow();
     }
+
+    public List<Appointments> getAppointmentsByDoctorId(Integer doctorId) {
+        return appointmentsRepository.findByDoctorID(doctorId);
+    }
 }

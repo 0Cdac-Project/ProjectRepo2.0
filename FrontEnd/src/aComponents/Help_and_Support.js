@@ -1,57 +1,5 @@
-import axios from "axios";
 import React, { useState } from "react";
-import { toast } from "react-toastify";
-
 const HelpAndSupport = () => {
-  var [mes, setMessage] = useState({
-    contactId: 0,
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    message: "",
-    submissionTime: null,
-  });
-  const handleChange = (args) => {
-    var copy = { ...mes };
-    copy[args.target.name] = args.target.value;
-    setMessage(copy);
-  };
-  const urlContactUs = "http://localhost:8080/api/v1/contactus/add";
-
-  const Reset = () => {
-    setMessage({
-      contactId: 0,
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      message: "",
-      submissionTime: null
-    });
-  };
-
-  const addContactUsMessage = async () => {
-    if (mes.message.length === 0) {
-      toast.warning("Enter Message")
-    }
-    else{
-    await axios
-      .post(urlContactUs, mes)
-      .then((res) => {
-        if (res.status===200) {
-          console.log("Success")
-          toast.success('Successfully registered the user')
-          Reset();
-        } else {
-          toast.error(res['error']);
-        }
-      })
-      .catch((err) => {
-        toast.error(err);
-      });
-    }
-  };
   return (
     <>
       <div className="page-header">
@@ -125,36 +73,6 @@ const HelpAndSupport = () => {
             </li>
           </ul>
         </ul>
-
-        <h2 id="h22">Contact Us htmlFor Assistance</h2>
-        <p id="p2">
-          If you have any further questions or need assistance, please feel free
-          to contact us using the htmlForm below:
-        </p>
-
-          <div className="form-floating">
-            <textarea
-              className="form-control"
-              placeholder="Leave a comment here"
-              id="floatingTextarea2"
-              value={mes.message}
-              onChange={handleChange}
-              name="message"
-              style={{ height: "100px" }}
-            ></textarea>
-            <label htmlFor="floatingTextarea2">Enter Message</label>
-          </div>
-          <div className="container-fluid">
-            <div className="row">
-              <div className="col-4"></div>
-              <div className="col-4">
-                <button className="button-30 mt-3" type="submit" onClick={addContactUsMessage}>
-                  Submit Message
-                </button>
-              </div>
-              <div className="col-4"></div>
-            </div>
-          </div>
       </section>
     </>
   );

@@ -16,4 +16,5 @@ public interface ManagementRepository extends JpaRepository<Management, Integer>
     List<Management> findByManagementCategory(String managementCategory);
     Optional<Management> findByManagementUsernameAndManagementPassword(String managementUsername,String managementPassword);
     Optional<Management> findByManagementUsernameOrManagementEmail(String managementUsername,String managementEmail);
+
 }

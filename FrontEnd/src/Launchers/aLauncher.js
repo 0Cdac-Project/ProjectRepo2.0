@@ -31,12 +31,20 @@ function ALauncher() {
 
         <div className="side-content">
           <div className="profile">
-            <div className="profile-img bg-img">
+            <div
+              className="profile-img bg-img"
+              style={{
+                width: "72px",
+                height: "72px",
+                borderRadius: "50%",
+                overflow: "hidden",
+              }}
+            >
               <img
                 src={`data:image/jpeg;base64, ${user.managementImage}`}
                 alt="Admin"
                 className="rounded-circle"
-                width="72"
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />
             </div>
             <h5 style={{ color: "whitesmoke" }}>Sainath Ibitwar</h5>
@@ -107,19 +115,30 @@ function ALauncher() {
             <div className="header-menu">
               <div className="user">
                 <NavLink to="profile">
-                  <div className="bg-img" style={{marginRight:'20px'}}>
+                  <div
+                    className="bg-img"
+                    style={{
+                      marginRight: "20px",
+                      width: "50px",
+                      height: "50px",
+                    }}
+                  >
                     <img
                       src={`data:image/jpeg;base64, ${user.managementImage}`}
                       alt="Admin"
                       className="rounded-circle"
-                      width="50"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        borderRadius: "50%",
+                      }}
                     />
                   </div>
                 </NavLink>
 
                 <span
                   className="las la-power-off"
-                  style={{ scale: "3" ,marginTop:"10px"}}
+                  style={{ scale: "3", marginTop: "10px" }}
                   onClick={logout}
                 ></span>
               </div>

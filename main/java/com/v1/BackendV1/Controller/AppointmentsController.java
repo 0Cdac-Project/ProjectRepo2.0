@@ -37,4 +37,8 @@ public class AppointmentsController {
         return appointmentsService.getAccountantByPatientId(patientId);
     }
 
+    @GetMapping("/by_doctor/{doctorId}")
+    public List<Appointments> getAppointmentsByDoctorId(@PathVariable Integer doctorId) {
+        return appointmentsService.getAppointmentsByDoctorId(doctorId);
+    }
 }
