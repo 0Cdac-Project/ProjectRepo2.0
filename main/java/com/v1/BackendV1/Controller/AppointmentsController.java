@@ -47,4 +47,9 @@ public class AppointmentsController {
     public ResponseEntity<?> getAccountantByPatientIdAndDoctorId(@PathVariable Integer patientId, @PathVariable Integer doctorId) {
         return appointmentsService.getAccountantByPatientIdAndDoctorId(patientId,doctorId);
     }
+
+    @PutMapping("/updateMedication")
+    public void updateAppointment(@RequestBody Appointments appointment){
+        appointmentsService.updateAppointment(appointment);
+    }
 }

@@ -12,6 +12,8 @@ function AppointmentMedication() {
     const [appointments, setAppointments] = useState([]);
     const [appointment, setAppointment] = useState({
         appointmentID:0,
+        appointmentDateTime:"",
+        medicalCondition:"",
         medication:""
     });
     const [searchText, setSearchText] = useState("");
@@ -32,12 +34,12 @@ function AppointmentMedication() {
       if(appointment.medication === ""){
         toast.warning("Add Medication First")
       }else{
-        axios.post("http://localhost:8080/api/v1/appointments/add", appointment)
+        axios.put("http://localhost:8080/api/v1/appointments/updateMedication", appointment)
         .then((response) =>{
             toast.success(`Successfully added appointment medication`);
         }) 
         .catch((err)=>{
-          toast.success(`Successfully added appointment medication`);
+          toast.success(`not Successful`);
         })
       }
     }
@@ -49,9 +51,11 @@ function AppointmentMedication() {
     }
     
   
-    const setAppo = (id) =>{
+    const setAppo = (id, appoDateTime, medCond) =>{
       var copyAppo = {...appointment};
       copyAppo.appointmentID = id;
+      copyAppo.appointmentDateTime = appoDateTime;
+      copyAppo.medicalCondition = medCond;
       setAppointment(copyAppo);
     }
 
@@ -119,7 +123,7 @@ function AppointmentMedication() {
                       </td>
                       <td>{res.medicalCondition}</td>
                       <td>
-                      <button onClick={()=>{setAppo(res.appointmentID)}}>Set Medication</button>
+                      <button onClick={()=>{setAppo(res.appointmentID, res.appointmentDateTime, res.medicalCondition)}}>Set Medication</button>
                       </td>
                     </tr>
                   );

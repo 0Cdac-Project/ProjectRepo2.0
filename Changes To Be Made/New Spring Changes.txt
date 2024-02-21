@@ -1,0 +1,19 @@
+In Appointment Controller : -
+
+@PutMapping("/updateMedication")
+    public void updateAppointment(@RequestBody Appointments appointment){
+        appointmentsService.updateAppointment(appointment);
+    }
+
+In Appointment Service : -
+
+public void updateAppointment(Appointments appointment) {
+        Optional<Appointments> optionalAppointment = appointmentsRepository.findById(appointment.getAppointmentID());
+        if(optionalAppointment.isPresent()){
+            optionalAppointment.get().setMedication(appointment.getMedication());
+            appointmentsRepository.save(optionalAppointment.get());
+        }
+        else{
+            throw new IllegalStateException("Appointment Doesn't Exist");
+        }
+    }

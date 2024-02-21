@@ -47,4 +47,15 @@ public class AppointmentsService {
 
         return (!a.isEmpty())?ResponseEntity.ok(a.get(0)):ResponseEntity.status(HttpStatus.NO_CONTENT).body("No Record Found");
     }
+
+    public void updateAppointment(Appointments appointment) {
+        Optional<Appointments> optionalAppointment = appointmentsRepository.findById(appointment.getAppointmentID());
+        if(optionalAppointment.isPresent()){
+            optionalAppointment.get().setMedication(appointment.getMedication());
+            appointmentsRepository.save(optionalAppointment.get());
+        }
+        else{
+            throw new IllegalStateException("Appointment Doesn't Exist");
+        }
+    }
 }
