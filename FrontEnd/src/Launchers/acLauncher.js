@@ -41,7 +41,7 @@ function ACLauncher() {
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />
             </div>
-            <h5 style={{ color: "whitesmoke" }}>Sainath Ibitwar</h5>
+            <h5 style={{ color: "whitesmoke" }}>{user.managementUsername}</h5>
           </div>
 
           <div className="side-menu">

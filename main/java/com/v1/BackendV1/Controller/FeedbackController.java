@@ -22,9 +22,14 @@ public class FeedbackController {
         return feedbackService.getFeedbacks();
     }
 
-    @PostMapping("/add")
-    public void addNewAccountant(@RequestBody Feedback feedback) {
+    @PostMapping("/add1")
+    public void addFeedback(@RequestBody Feedback feedback) {
         feedbackService.addFeedbacks(feedback);
+    }
+
+    @PostMapping("/add")
+    public void addFeedbackByAppointment(@RequestBody Feedback feedback) {
+        feedbackService.addFeedbacksByAppointmentId(feedback);
     }
 
     @GetMapping("/{id}")

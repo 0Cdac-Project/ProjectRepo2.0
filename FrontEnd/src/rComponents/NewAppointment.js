@@ -19,7 +19,6 @@ function NewAppointment() {
         patientID:0,
         doctorID:0,
         medicalCondition:"",
-        medication:"",
         appointmentDateTime:""
     });
 
@@ -74,8 +73,6 @@ function NewAppointment() {
       toast.warning("Please select appointment Time");
     }else if(appointment.medicalCondition==""){
       toast.warning("Please Input Medical Condition");
-    }else if(appointment.medication==""){
-      toast.warning( "Please input medication" );
     }else{
       var appoDate = new Date(appointment.appointmentDateTime);
       var formattedDate = formatDate(appoDate);
@@ -119,7 +116,7 @@ function NewAppointment() {
     return ( 
         <>  
         {doctor.doctorID === 0 ?
-         <div>
+         <div className="container">
 
           <div className="page-header">
                 <h1>Appointments Add New</h1>
@@ -181,7 +178,7 @@ function NewAppointment() {
                          <td>{res.doctorAvailability}</td>
                          <td>{res.doctorShifts}</td>
                          <td>{res.doctorFees}</td>
-                         <td><button onClick={()=>{selectDoctor(res)}}>Select Doctor</button></td>
+                         <td><button onClick={()=>{selectDoctor(res)}} className="button-4">Select Doctor</button></td>
                        </tr>
                      );
                    }
@@ -195,11 +192,10 @@ function NewAppointment() {
          
          :
                 
-         <div>
+         <div className="container">
             <div className="page-header">
                 <h1>Appointments Add New</h1>
             </div>
-            <div className="container">
              <div className="table-responsive">
                 <table className="table table-bordered">
                     <tr>
@@ -219,14 +215,9 @@ function NewAppointment() {
                       <td> <input type="text" name="medicalCondition" onChange={appointmentValueChange} placeholder="ex. Artheritis"></input> </td>
                     </tr>
                     <tr>
-                      <td> Medication :  </td>
-                      <td> <input type="text" name="medication" onChange={appointmentValueChange} placeholder="ex. Dolo 650"></input> </td>
-                    </tr>
-                    <tr>
-                      <td colSpan={2}><button onClick={bookAppo}> Book Appointment </button></td>
+                      <td colSpan={2}><button onClick={bookAppo} className="button-30"> Book Appointment </button></td>
                     </tr>
                 </table>                
-            </div>
             </div>
           </div>
          }

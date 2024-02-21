@@ -77,6 +77,9 @@ public class ManagementController {
         return ResponseEntity.ok(managementService.restoreImage(empId));
     }
 
-
+    @GetMapping("/totalSalary")
+    public ResponseEntity<?> getTotalSalary(){
+        return ResponseEntity.ok(managementService.getTotalSalary());
+    }
 
 }

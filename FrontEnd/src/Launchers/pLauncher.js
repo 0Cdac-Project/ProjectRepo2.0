@@ -2,9 +2,12 @@ import { useSelector } from "react-redux";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { selectUser } from "../Redux/Reducer/userslice";
+import { useState } from "react";
 function PLauncher() {
     const navigate = useNavigate();
     const user = useSelector(selectUser);
+    const [image,setImage]=useState(user.patientImage);
+
     var logout = ()=>
     {
       window.sessionStorage.removeItem("token");
@@ -38,7 +41,7 @@ function PLauncher() {
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />
             </div>
-            <h5 style={{ color: "whitesmoke" }}>Sainath Ibitwar</h5>
+            <h5 style={{ color: "whitesmoke" }}>{user.patientUsername}</h5>
           </div>
 
             <div className="side-menu">

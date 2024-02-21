@@ -304,22 +304,7 @@ function AddStaff() {
               />
               <label htmlFor="managementSalary">Salary</label>
             </div>
-            <div className="form-floating mb-2">
-              <input
-                type="file"
-                accept="image/png, image/jpeg"
-                className="form-control"
-                id="managementImage"
-                placeholder="Profile Image Here"
-                name="managementImage"
-                value={management.managementImage}
-                onChange={handleChange}
-              />
-              <label htmlFor="managementImage">
-                Profile Image (png/jpeg format)
-              </label>
-            </div>
-
+          
             <div className="form-floating mb-2">
               <input
                 type="date"

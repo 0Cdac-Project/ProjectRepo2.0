@@ -11,4 +11,6 @@ import java.util.Optional;
 public interface BillingRepository extends JpaRepository<Billing, Integer> {
     Optional<Billing> findById(Integer id);
     List<Billing> findByManagementIdOrderByAppointmentAppointmentDateTimeDesc(Integer id);
+
+    List<Billing> findByAppointmentId(Integer appointmentId);
 }

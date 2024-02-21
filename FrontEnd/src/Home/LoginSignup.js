@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
 import "./LoginSignup.css";
 
@@ -7,9 +7,37 @@ import email_icon from "./Assets/email.png";
 import password_icon from "./Assets/password.png";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { RecoveryContext } from "../App";
 
 function LoginSignup() {
   const navigate = useNavigate();
+  const { setEmail, setPage, email, setOTP } = useContext(RecoveryContext);
+
+  function nagigateToOtp() {
+    if (userInfo.LoginType === "patients") {
+      if (email) {
+        if (!emailPattern.test(email)) {
+        } else {
+          const OTP = Math.floor(Math.random() * 9000 + 1000);
+          console.log(OTP);
+          setOTP(OTP);
+
+          axios
+            .post("http://localhost:9999/send_recovery_email", {
+              OTP,
+              recipient_email: email,
+            })
+            .then(() => navigate("/otp"))
+            .catch(toast.error("Enter Valid Email"));
+          return;
+        }
+      }
+      return toast.warning("Please enter your email");
+    } else {
+      toast.warning("Not Allowed Contact Admin");
+    }
+  }
+
   const [action, setAction] = useState("Login");
   const [errormsg, setErrorMsg] = useState("");
   const [userInfo, setUserInfo] = useState({
@@ -32,6 +60,7 @@ function LoginSignup() {
     var copyofUser = { ...userInfo };
     copyofUser[args.target.name] = args.target.value;
     setUserInfo(copyofUser);
+    setEmail(copyofUser.username);
   };
   const inputChangeSignup = (args) => {
     var copyofUser = { ...userInfoSignup };
@@ -60,7 +89,9 @@ function LoginSignup() {
         } else if (!emailPattern.test(userInfoSignup.email)) {
           toast.warning("Enter Valid Email");
         } else if (!lengthcheck2.test(userInfoSignup.password)) {
-          toast.warning("Minimum eight and maximum 20 characters, at least one uppercase letter, one lowercase letter, one number and one special character");
+          toast.warning(
+            "Minimum eight and maximum 20 characters, at least one uppercase letter, one lowercase letter, one number and one special character"
+          );
         } else if (userInfoSignup.password !== userInfoSignup.confirmPassword) {
           toast.warning("Password Mismatch");
         } else {
@@ -297,7 +328,11 @@ function LoginSignup() {
           {action === "Sign Up" ? (
             <div></div>
           ) : (
-            <div className="forgot-password" id="forgot-password">
+            <div
+              className="forgot-password"
+              id="forgot-password"
+              onClick={() => nagigateToOtp()}
+            >
               {" "}
               Forgot Password ? <span>Click Here</span>
             </div>
@@ -334,85 +369,6 @@ function LoginSignup() {
         </div>
       </div>
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   );
 }
 export default LoginSignup;

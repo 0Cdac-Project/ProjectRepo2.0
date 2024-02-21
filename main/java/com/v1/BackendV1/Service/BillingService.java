@@ -38,4 +38,8 @@ public class BillingService {
     public List<Billing> getBillsByManagementId(Integer managementId) {
         return billingRepository.findByManagementIdOrderByAppointmentAppointmentDateTimeDesc(managementId);
     }
+
+    public List<Billing> getBillsByAppointmentId(Integer appointment_id) {
+        return billingRepository.findByAppointmentId(appointment_id);
+    }
 }

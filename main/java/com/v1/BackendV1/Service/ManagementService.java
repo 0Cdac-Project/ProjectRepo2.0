@@ -103,4 +103,8 @@ public class ManagementService {
         Management m =  managementRepository.findById(id).orElseThrow();
         return m.getManagementImage();
     }
+
+    public Integer getTotalSalary(){
+        return managementRepository.findTotalManagementSalary();
+    }
 }

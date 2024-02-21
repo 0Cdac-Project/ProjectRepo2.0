@@ -31,6 +31,13 @@ public class FeedbackService {
         feedbackRepository.save(feedback);
     }
 
+    public void addFeedbacksByAppointmentId(Feedback feedback) {
+        List<Feedback> optionalPatient = feedbackRepository.findByAppointmentId(feedback.getAppointmentId());
+        if (!optionalPatient.isEmpty()) {
+            throw new IllegalStateException("Duplicate Entry");
+        }
+        feedbackRepository.save(feedback);
+    }
     public Feedback getFeedbackById(Integer id) {
         return feedbackRepository.findById(id).orElseThrow();
     }

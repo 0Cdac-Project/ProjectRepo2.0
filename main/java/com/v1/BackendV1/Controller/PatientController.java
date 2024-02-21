@@ -72,4 +72,13 @@ private final PatientService patientService;
         return patientService.changeDetails(id, patient);
     }
 
+    @PutMapping("/updatePassword2/{username}")
+    public ResponseEntity<?> changePassword2(@PathVariable String username, @RequestBody ChangePassword2 changePassword) {
+        return patientService.changePassword2(username, changePassword.getPatientPassword(), changePassword.getPatientNewPassword());
+    }
+
+    @GetMapping("/findAll/desc")
+    public List<Patient> getPatientsDesc(){
+        return patientService.getPatientsDesc();
+    }
 }

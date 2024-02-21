@@ -176,3 +176,32 @@
   display: flex;
 
 }
+/* Container for OTP input */
+#otp-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+/* Individual OTP input fields */
+#otp-input {
+  width: 40px;
+  height: 40px;
+  margin: 0 5px;
+  text-align: center;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Focus style for OTP input fields */
+.otp-input:focus {
+  outline: none;
+  border-color: #007bff;
+}
+
+/* Error style for OTP input fields */
+.otp-input.error {
+  border-color: red;
+}

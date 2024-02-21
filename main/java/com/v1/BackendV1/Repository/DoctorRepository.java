@@ -15,4 +15,8 @@ public interface DoctorRepository extends JpaRepository<Doctor, Integer> {
     Optional<Doctor> findByDoctorUsernameAndDoctorPassword(String doctorUsername,String doctorPassword);
     Optional<Doctor> findByDoctorUsernameOrDoctorEmail(String docterUsername,String email);
     List<Doctor> findByDoctorAvailability(String Availibility);
+
+    @Query("select sum(d.doctorSalary) from Doctor d")
+    Integer findTotalDoctorSalary();
+
 }

@@ -17,4 +17,6 @@ public interface ManagementRepository extends JpaRepository<Management, Integer>
     Optional<Management> findByManagementUsernameAndManagementPassword(String managementUsername,String managementPassword);
     Optional<Management> findByManagementUsernameOrManagementEmail(String managementUsername,String managementEmail);
 
+    @Query(value="select sum(management_salary) from management", nativeQuery=true)
+    Integer findTotalManagementSalary();
 }

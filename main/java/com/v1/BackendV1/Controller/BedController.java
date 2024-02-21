@@ -3,6 +3,7 @@ package com.v1.BackendV1.Controller;
 import com.v1.BackendV1.Classes.Bed;
 import com.v1.BackendV1.Service.BedService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,6 +31,11 @@ public class BedController {
     @GetMapping("/{id}")
     public Bed getBedsById(@PathVariable Integer id) {
         return bedService.getBedById(id);
+    }
+
+    @GetMapping("totalCharge")
+    public ResponseEntity<?> getTotalBedCharge(){
+        return bedService.getTotalBedCharge();
     }
 
     @GetMapping("/available/{wardCategory}")

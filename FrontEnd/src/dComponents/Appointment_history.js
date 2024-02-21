@@ -24,11 +24,6 @@ function Appointment_History() {
     console.log(searchText)
   };
 
-  const getDocname = (doctor) => {
-    const name = doctor.doctorFirstName + " " + doctor.doctorLastName;
-    return name.toLowerCase();
-  };
-
   const getPatientname = (patient) => {
     const name = patient.patientFirstName + " " + patient.patientLastName;
     return name.toLowerCase();
@@ -59,6 +54,7 @@ function Appointment_History() {
           <thead>
             <tr>
               <th>Id</th>
+              <th>Patient Id</th>
               <th>Appointment Date</th>
               <th>Patient Name</th>
               <th>Medical condition</th>
@@ -73,6 +69,7 @@ function Appointment_History() {
                 return (
                   <tr key={index}>
                     <td>{res.appointmentID}</td>
+                    <td>{res.patient.patientID}</td>
                     <td>{res.appointmentDateTime}</td>
                     <td>
                       {res.patient.patientFirstName +

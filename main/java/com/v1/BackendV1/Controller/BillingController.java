@@ -35,4 +35,8 @@ public class BillingController {
     public List<Billing> getBillsByManagementId(@PathVariable Integer management_id){
         return billingService.getBillsByManagementId(management_id);
     }
+    @GetMapping("/appointmentId/{appointment_id}")
+    public List<Billing> getBillsByAppointmentId(@PathVariable Integer appointment_id){
+        return billingService.getBillsByAppointmentId(appointment_id);
+    }
 }

@@ -34,6 +34,7 @@ import DocterPatient from "./dComponents/Patient_History";
 import DocterHelpAndSupport from "./dComponents/Help_and_Support";
 import DocterProfile from "./dComponents/Profile";
 import DocterEducationRes from "./dComponents/EducataionResources";
+import DoctorMedication from "./dComponents/AppointmentMedication";
 
 import PatientLauncher from "./Launchers/pLauncher";
 import PatientAppointmentHistory from "./pComponents/Appointment_history";
@@ -61,6 +62,10 @@ import AccHelpAndSupport from "./acComponents/Help_and_Support";
 import AccProfile from "./acComponents/Profile";
 import AccAppointment from "./acComponents/AppointmentDetails";
 import AccFinance from "./acComponents/Finance";
+import { createContext, useState } from "react";
+import OTPInput from "./Home/PasswordReset/OTPInput";
+import Reset from "./Home/PasswordReset/Reset";
+import Recovered from "./Home/PasswordReset/Recovered";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -99,6 +104,7 @@ const router = createBrowserRouter(
           <Route path="edures" element={<DocterEducationRes />} />
           <Route path="help" element={<DocterHelpAndSupport />} />
           <Route path="profile" element={<DocterProfile />} />
+          <Route path="appomedication" element={<DoctorMedication />} />
         </Route>
 
         <Route path="patient" element={<PatientLauncher />}>
@@ -137,15 +143,34 @@ const router = createBrowserRouter(
           <Route path="profile" element={<AccProfile />} />
         </Route>
       </Route>
+      <Route path="otp" element={<OTPInput/>}/>
+      <Route path="reset" element={<Reset/>}/>
     </Route>
   )
 );
 
+export const RecoveryContext = createContext();
 function App() {
+  const [page, setPage] = useState("login");
+  const [email, setEmail] = useState();
+  const [otp, setOTP] = useState();
+
+  function NavigateComponents() {
+    if (page === "login") return <LoginSignup />;
+    if (page === "otp") return <OTPInput />;
+    if (page === "reset") return <Reset />;
+
+    return <Recovered />;
+  }
+
   return (
     <>
-      <RouterProvider router={router} />
-      <ToastContainer position="bottom-right" />
+      <RecoveryContext.Provider
+        value={{ page, setPage, otp, setOTP, setEmail, email }}
+      >
+        <RouterProvider router={router} />
+        <ToastContainer position="bottom-right" />
+      </RecoveryContext.Provider>
     </>
   );
 }

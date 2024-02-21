@@ -5,6 +5,7 @@ import axios from "axios";
 function Doctors() {
   const [doctors, setDoctors] = useState([]);
   const [doctorName, setDoctorName] = useState(""); 
+  const [searchText, setSearchText] = useState("");
 
   // var [doctor, setDoctor] = useState({
   //   doctorID: null,
@@ -65,8 +66,17 @@ useEffect(() => {
   //     });
   // };
 
+  const onSearch = (args) => {
+    setSearchText(args.target.value);
+  }
+
+  const getDocname = (doctor) => {
+    const name  = doctor.doctorFirstName+" "+doctor.doctorLastName;
+    return name.toLowerCase();
+  }
+
   return (
-    <div className="container-fluid">
+    <div className="container-fluid m-2">
       <div className="page-header">
         <h1>Doctors</h1>
       </div>
@@ -77,39 +87,71 @@ useEffect(() => {
         <br></br>
         <div>
           <label>Search Doctor: </label> &nbsp;
-          <input type="text" id="searchDoctor" placeholder="Enter name of the doctor"></input>
+          <input type="text" id="searchDoctor" placeholder="Enter name of the doctor" onChange={onSearch}></input>
         </div>
         <div id="content" className="row">
           {doctors.map((res) => {
             const imageSrc = `data:image/jpeg;base64,${res.doctorImage}`;
-            return (
-              <div className="row" key={res.doctorID}>
-                <div className="col-md-9" id="docterList">
-                  <h6>Id {res.doctorID}</h6>
-                  <h6>
-                    {res.doctorFirstName} {res.doctorLastName}
-                  </h6>
-                  <h6>Speciality: {res.doctorSpeciality}</h6>
-                  <h6>Department: {res.doctorDepartment}</h6>
-                  <h6>Designation: {res.doctorDesignation}</h6>
-                  <h6>Qualification: {res.doctorQualification}</h6>
-                  <h6>Experience: {res.doctorExperience}</h6>
-                  <h6>
-                    Contact Details: {res.doctorEmail} | {res.doctorMobile}
-                  </h6>
+            if(searchText === "") {
+              return (
+                <div className="row" key={res.doctorID}>
+                  <div className="col-md-9" id="docterList">
+                    <h6>Id {res.doctorID}</h6>
+                    <h6>
+                      {res.doctorFirstName} {res.doctorLastName}
+                    </h6>
+                    <h6>Speciality: {res.doctorSpeciality}</h6>
+                    <h6>Department: {res.doctorDepartment}</h6>
+                    <h6>Designation: {res.doctorDesignation}</h6>
+                    <h6>Qualification: {res.doctorQualification}</h6>
+                    <h6>Experience: {res.doctorExperience}</h6>
+                    <h6>
+                      Contact Details: {res.doctorEmail} | {res.doctorMobile}
+                    </h6>
+                  </div>
+                  <div className="col-md-2">
+                    <center>
+                      <img
+                        src={imageSrc}
+                        alt="Doctor"
+                        className="img-fluid"
+                        id="doctorImg"
+                      />
+                    </center>
+                  </div>
                 </div>
-                <div className="col-md-2 mt-5">
-                  <center>
-                    <img
-                      src={imageSrc}
-                      alt="Doctor"
-                      className="img-fluid"
-                      id="doctorImg"
-                    />
-                  </center>
+              );
+            }
+            else if(getDocname(res).includes(searchText.toLowerCase())) {
+              return (
+                <div className="row" key={res.doctorID}>
+                  <div className="col-md-9" id="docterList">
+                    <h6>Id {res.doctorID}</h6>
+                    <h6>
+                      {res.doctorFirstName} {res.doctorLastName}
+                    </h6>
+                    <h6>Speciality: {res.doctorSpeciality}</h6>
+                    <h6>Department: {res.doctorDepartment}</h6>
+                    <h6>Designation: {res.doctorDesignation}</h6>
+                    <h6>Qualification: {res.doctorQualification}</h6>
+                    <h6>Experience: {res.doctorExperience}</h6>
+                    <h6>
+                      Contact Details: {res.doctorEmail} | {res.doctorMobile}
+                    </h6>
+                  </div>
+                  <div className="col-md-2">
+                    <center>
+                      <img
+                        src={imageSrc}
+                        alt="Doctor"
+                        className="img-fluid"
+                        id="doctorImg"
+                      />
+                    </center>
+                  </div>
                 </div>
-              </div>
-            );
+              );
+            }
           })}
         </div>
       </div>

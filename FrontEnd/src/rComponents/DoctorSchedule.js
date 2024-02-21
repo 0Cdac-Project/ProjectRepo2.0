@@ -68,23 +68,9 @@ function DocterSchedule() {
       </div>
       <div className="container-fluid">
         <div className="row">
-        {/* <div className="col-10 mt-2" style={{textAlign:"left"}}>
-            <label className="label1_1">
-              Search User By Username/FirstName:
-            </label>
-          </div>
-          <div className="col-2" style={{textAlign:"left"}}>
-            <input
-              type="text"
-              name="finduser"
-              placeholder="Search"
-              value={value1}
-              onChange={handleChange}
-            />
-          </div> */}
           <div className="col-10 mt-2" style={{textAlign:"right"}}>
             <label className="label1_1">
-              Search User By Username/FirstName:
+              Search Doctor By Name / Dept:
             </label>
           </div>
           <div className="col-2">
@@ -120,7 +106,7 @@ function DocterSchedule() {
                     !res.doctorFirstName
                       .toLowerCase()
                       .includes(value1.toLowerCase()) &&
-                    !res.doctorUsername
+                    !res.doctorLastName
                       .toLowerCase()
                       .includes(value1.toLowerCase())&&
                     !res.doctorDepartment

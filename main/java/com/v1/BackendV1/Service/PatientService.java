@@ -95,4 +95,16 @@ public class PatientService {
         patientRepository.save(m);
         return ResponseEntity.ok(m);
     }
+
+    public ResponseEntity<?> changePassword2(String username, String patientPassword, String patientNewPassword) {
+        Patient m = patientRepository.findByPatientEmail(username).orElseThrow();
+            m.setPatientPassword(patientNewPassword);
+            patientRepository.save(m);
+            return ResponseEntity.ok(m);
+    }
+
+    public List<Patient> getPatientsDesc (){
+        return patientRepository.findPatientsDesc();
+    }
+
 }

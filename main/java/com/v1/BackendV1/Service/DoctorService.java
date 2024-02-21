@@ -96,4 +96,8 @@ public class DoctorService {
         doctorRepository.save(m);
         return ResponseEntity.ok(m);
     }
+
+    public ResponseEntity<?> getTotalSalary() {
+        return ResponseEntity.ok(doctorRepository.findTotalDoctorSalary());
+    }
 }

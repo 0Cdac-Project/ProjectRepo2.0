@@ -4,6 +4,7 @@ import com.v1.BackendV1.Classes.Bed;
 import com.v1.BackendV1.Repository.BedRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,6 +31,10 @@ public class BedService {
     public Bed getBedById(Integer id) {
         return bedRepository.findById(id).orElseThrow();
     }
+    public ResponseEntity<?> getTotalBedCharge(){
+        return ResponseEntity.ok(bedRepository.findTotalBedCharge());
+    }
+
 
     public List<Bed> getByAvailibility(String wardCategory){
         return bedRepository.findByAvailibility(wardCategory);

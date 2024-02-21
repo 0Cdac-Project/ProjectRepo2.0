@@ -2,13 +2,14 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import Header from "./HomeComponents/Header";
 import Content from "./HomeComponents/Content";
+import { Footer } from "./HomeComponents/Footer";
 
 function Home() {
   return (
     <>
       <Header />
       <Content />
-      <div style={{margin:"100px", width:'800px', height:'400px'}}>
+      <div style={{ margin: "100px", width: "800px", height: "400px" }}>
         <div
           id="my-map-canvas"
           style={{ height: "100%", width: "100%", maxWidth: "100%" }}
@@ -19,6 +20,7 @@ function Home() {
           ></iframe>
         </div>
       </div>
+      <Footer/>
     </>
   );
 }

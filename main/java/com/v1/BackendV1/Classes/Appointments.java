@@ -18,7 +18,7 @@ public class Appointments {
     @Column(name = "medical_condition", columnDefinition = "TEXT",nullable = false)
     private String medicalCondition;
 
-    @Column(name = "medication", columnDefinition = "TEXT",nullable = false)
+    @Column(name = "medication", columnDefinition = "TEXT")
     private String medication;
     @Column(name = "patient_id")
     private Integer patientID;

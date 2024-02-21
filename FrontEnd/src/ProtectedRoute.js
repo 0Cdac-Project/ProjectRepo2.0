@@ -7,7 +7,7 @@ import axios from "axios";
 
 function ProtectedRoute(props) {
   const dispatch = useDispatch();
-  const handleSetUser = (decoded) => {
+  const handleSetUser = async(decoded) => {
     var url = "";
     if (decoded.category === "patients") {
       url = `http://localhost:8080/api/v1/patient/findUser/${decoded.username}`;
@@ -16,7 +16,7 @@ function ProtectedRoute(props) {
     } else {
       url = `http://localhost:8080/api/v1/management/findUser/${decoded.username}`;
     }
-    axios
+    await axios
       .get(url)
       .then((res) => {
         dispatch(setUser(res.data));

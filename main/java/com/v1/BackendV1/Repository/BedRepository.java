@@ -13,6 +13,10 @@ import java.util.Optional;
 public interface BedRepository extends JpaRepository<Bed, Integer> {
     Optional<Bed> findById(Integer id);
 
+    @Query("select sum(b.wardBedCharge) from Bed b")
+    Integer findTotalBedCharge();
+
     @Query("select b from Bed b where b.wardBedAvailability = true and b.wardID in (select w.wardID from Ward w where w.wardCategory = :wardCategory)")
     List<Bed> findByAvailibility(@Param("wardCategory") String wardCategory);
+
 }

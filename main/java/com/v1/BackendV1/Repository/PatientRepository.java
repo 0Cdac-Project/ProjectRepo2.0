@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -13,4 +14,9 @@ public interface PatientRepository extends JpaRepository<Patient,Integer> {
     Optional<Patient> findById(Integer id);
     Optional<Patient> findByPatientUsernameAndPatientPassword(String patientUsername,String patientPassword);
     Optional<Patient> findByPatientUsernameOrPatientEmail(String patientUsername,String patientEmail);
+
+    Optional<Patient> findByPatientEmail(String username);
+
+    @Query("select p from Patient p order by p.patientID desc")
+    List<Patient> findPatientsDesc();
 }

@@ -44,7 +44,11 @@ function NewPatient() {
           toast.warning("Enter Valid patient_email");
         }else if(newPatient.patientMobile < 1000000000 || newPatient.patientMobile > 9999999999){
           toast.warning("Enter a Valid Mobile Number");
-        }else{
+        }else if(new Date(newPatient.patientDob).getTime()>new Date().getTime())
+        {
+          toast.warning("Date of Birth Should Be Past Date");
+        }
+        else{
           axios
           .post("http://127.0.0.1:8080/api/v1/patient/add", newPatient)
             .then((reply) => {
@@ -111,7 +115,7 @@ function NewPatient() {
                 </tr>
                 <tr>
                   <td colSpan={2} style={{alignContent: "center"}}>
-                    <button onClick={submitPatient}>Add Patient</button>
+                    <button onClick={submitPatient} className="button-30">Add Patient</button>
                   </td>
                 </tr>
               </tbody>

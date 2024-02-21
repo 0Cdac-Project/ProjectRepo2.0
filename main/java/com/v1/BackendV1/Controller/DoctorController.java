@@ -78,4 +78,9 @@ public class DoctorController {
     public ResponseEntity<?> changeDetails(@PathVariable Integer id, @RequestBody Doctor doctor) {
         return doctorService.changeDetails(id, doctor);
     }
+
+    @GetMapping("/totalSalary")
+    public ResponseEntity<?> getTotalSalary(){
+        return doctorService.getTotalSalary();
+    }
 }

@@ -38,7 +38,7 @@ function DLauncher() {
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />
             </div>
-            <h5 style={{ color: "whitesmoke" }}>{user.doctorFirstName + " " + user.doctorLastName}</h5>
+            <h5 style={{ color: "whitesmoke" }}>{user.doctorUsername}</h5>
           </div>
 
 
@@ -48,6 +48,12 @@ function DLauncher() {
                         <NavLink to="dashboard" >
                             <span className="las la-home"></span>
                             <small>Dashboard</small>
+                        </NavLink>
+                    </li>
+                    <li>
+                       <NavLink to="appomedication" >
+                            <span className="las la-clipboard-list"></span>
+                            <small>Appointment Medication</small>
                         </NavLink>
                     </li>
                     <li>

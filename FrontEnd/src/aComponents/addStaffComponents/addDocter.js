@@ -461,22 +461,7 @@ function AddDocter() {
               />
               <label htmlFor="doctorFees">Extra Fees Per Appointment</label>
             </div>
-            <div className="form-floating mb-2">
-              <input
-                type="file"
-                accept="image/png, image/jpeg"
-                className="form-control"
-                id="doctorImage"
-                placeholder="Profile Image Here"
-                name="doctorImage"
-                value={doctor.doctorImage}
-                onChange={handleChange}
-              />
-              <label htmlFor="doctorImage">
-                Profile Image (png/jpeg format)
-              </label>
-            </div>
-
+            
             <div className="form-floating mb-2">
               <input
                 type="date"
